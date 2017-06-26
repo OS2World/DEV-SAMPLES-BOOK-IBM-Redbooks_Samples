@@ -1,0 +1,9 @@
+
+#define INCL_WIN
+#include <os2.h>
+
+#include "res.h"
+
+POINTER ID_RECORDICON LOADONCALL MOVEABLE DISCARDABLE record.ico
+
+

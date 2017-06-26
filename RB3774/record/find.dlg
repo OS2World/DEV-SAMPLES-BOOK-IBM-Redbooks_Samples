@@ -1,0 +1,17 @@
+DLGINCLUDE 1 "find.h"
+
+DLGTEMPLATE ID_DLG_FIND LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Telephone List - Find", ID_DLG_FIND, 57, 25, 171, 86, 
+            WS_VISIBLE, FCF_SYSMENU | FCF_TITLEBAR
+    BEGIN
+        ENTRYFIELD      " ", ID_EF_TELNUMBER, 84, 63, 67, 8, NOT 
+                        ES_AUTOSCROLL | ES_MARGIN
+        LTEXT           "Telephone:", 102, 12, 64, 56, 8
+        ENTRYFIELD      "", ID_EF_SURNAME, 84, 42, 68, 8, ES_MARGIN
+        LTEXT           "Surname:", 104, 13, 42, 56, 8
+        DEFPUSHBUTTON   "Apply", DID_OK, 13, 8, 40, 14
+        PUSHBUTTON      "Cancel", DID_CANCEL, 65, 8, 40, 14
+        PUSHBUTTON      "Help", 105, 119, 8, 40, 14, BS_HELP
+    END
+END

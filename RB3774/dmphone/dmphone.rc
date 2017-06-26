@@ -1,0 +1,15 @@
+/*********** DMPHONE  C Sample Program Resource Script File (.RC) ***************/
+
+
+
+#include <os2.h>
+#include "dmphone.h"
+
+POINTER ID_MYPOINTER dmphone.ico
+ICON 9999 dmphone.ico
+
+MENU    RESID_MENU PRELOAD
+BEGIN
+    MENUITEM "Delete", ID_EXITPROG, MIS_TEXT
+END
+

@@ -1,0 +1,16 @@
+
+#include <os2.h>
+#include "swapsize.h"
+
+ICON    ID_WINDOW swapsize.ico
+
+MENU    ID_WINDOW PRELOAD
+BEGIN
+  SUBMENU "~Interval", ID_INTERVAL  BEGIN
+    MENUITEM "10 Seconds", ID_10SECS, MIS_TEXT ,MIA_CHECKED
+    MENUITEM "30 Seconds", ID_30SECS, MIS_TEXT
+    MENUITEM "60 Seconds", ID_60SECS, MIS_TEXT
+  END
+END
+
+

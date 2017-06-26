@@ -1,0 +1,17 @@
+/*********** DMCUST Sample Program Resource Script File ***************/
+
+
+
+#include <os2.h>
+#include "dmcust.h"
+
+ICON    ID_WINDOW dmcust.ico
+POINTER ID_CUSTPOINTER dmcust.ico
+
+
+ACCELTABLE ID_WINDOW PRELOAD
+BEGIN
+  VK_F3, ID_EXITPROG, VIRTUALKEY
+END
+
+

@@ -1,0 +1,336 @@
+
+ recflder
+
+ Start         Length     Name                   Class
+ 0001:00000000 000003474H CODE32                 CODE 32-bit
+ 0002:00000000 000000019H CODE16                 CODE 16-bit
+ 0003:00000000 000000030H _MSGSEG32              CODE 32-bit
+ 0004:00000000 0000010C0H DATA32                 DATA 32-bit
+ 0004:000010C0 000000154H CONST32                CONST 32-bit
+ 0004:00001214 000000000H BSS32                  BSS 32-bit
+ 0004:00001214 0000000C8H c_common               BSS 32-bit
+ 0005:00000000 00000000CH EDC1                   EDC_CLASS 32-bit
+ 0005:0000000C 0000000FCH EDC2                   EDC_CLASS 32-bit
+ 0005:00000108 000000004H EDC3                   EDC_CLASS 32-bit
+ 0006:00000000 000000000H STACK32                STACK 32-bit
+ 0006:00000000 000000008H ASMD16                 DATA16 16-bit
+
+ Origin   Group
+ 0004:0   DGROUP
+ 0005:0   _EIBGROUP
+ 0000:0   FLAT
+
+ Address       Export                  Alias
+
+ 0004:00000018 M_RecordFolderCClassData  M_RecordFolderCClassData
+ 0004:00000014 M_RecordFolderClassData  M_RecordFolderClassData
+ 0001:00000854 M_RecordFolderNewClass  M_RecordFolderNewClass
+ 0004:0000000C RecordFolderCClassData  RecordFolderCClassData
+ 0004:00000004 RecordFolderClassData   RecordFolderClassData
+ 0001:00000404 RecordFolderNewClass    RecordFolderNewClass
+
+  Address         Publics by Name
+
+ 0004:00001250       @BSSEDCINIT.C
+ 0004:00001218       @BSSN_EXCEPT.C
+ 0004:000012CC       @BSSPRTEMSG.C
+ 0004:00001248       @BSSrecflder.c
+ 0004:00000000       DefaultClassTitle
+ 0000:00000000  Imp  DOS32FLATTOSEL       (DOSCALLS.425)
+ 0003:00000012       DOS32GETMESSAGE
+ 0003:00000012       Dos32GetMessage
+ 0000:00000000  Imp  DOS32IQUERYMESSAGECP (MSG.8)
+ 0000:00000000  Imp  DOS32SELTOFLAT       (DOSCALLS.426)
+ 0000:00000000  Imp  DOS32TRUEGETMESSAGE  (MSG.6)
+ 0000:00000000  Imp  DosAllocMem          (DOSCALLS.299)
+ 0000:00000000  Imp  DosCreateMutexSem    (DOSCALLS.331)
+ 0000:00000000  Imp  DosExit              (DOSCALLS.234)
+ 0000:00000000  Imp  DosFreeMem           (DOSCALLS.304)
+ 0000:00000000  Imp  DosFreeModule        (DOSCALLS.322)
+ 0000:00000000  Imp  DosGetInfoBlocks     (DOSCALLS.312)
+ 0003:00000012       DosGetMessage
+ 0003:00000012       DOSGETMESSAGE
+ 0000:00000000  Imp  DosLoadModule        (DOSCALLS.318)
+ 0000:00000000  Imp  DosQueryDBCSEnv      (NLS.6)
+ 0000:00000000  Imp  DosQueryHType        (DOSCALLS.224)
+ 0000:00000000  Imp  DosQuerySysInfo      (DOSCALLS.348)
+ 0000:00000000  Imp  DosRaiseException    (DOSCALLS.356)
+ 0000:00000000  Imp  DosReleaseMutexSem   (DOSCALLS.335)
+ 0000:00000000  Imp  DosRequestMutexSem   (DOSCALLS.334)
+ 0000:00000000  Imp  DosSetFilePtr        (DOSCALLS.256)
+ 0000:00000000  Imp  DosSetSignalExceptionFocus (DOSCALLS.378)
+ 0000:00000000  Imp  DosWrite             (DOSCALLS.282)
+ 0004:00001268       errno
+ 0001:00002448       fflush
+ 0001:000024D8       free
+ 0001:00002644       getenv
+ 0004:000012B4       hmodThisClass
+ 0001:000027DC       malloc
+ 0000:00000000  Imp  M_RecordCClassData   (record.M_RecordCClassData)
+ 0000:00000000  Imp  M_RecordClassData    (record.M_RecordClassData)
+ 0004:00000018       M_RecordFolderCClassData
+ 0004:00000014       M_RecordFolderClassData
+ 0001:00000854       M_RecordFolderNewClass
+ 0000:00000000  Imp  M_RecordNewClass     (record.M_RecordNewClass)
+ 0000:00000000  Imp  M_WPFolderNewClass   (PMWP.315)
+ 0000:00000000  Imp  M_WPObjectClassData  (PMWP.323)
+ 0001:00000DAC       recfldercls_wpclsInitData
+ 0001:00000D6C       recfldercls_wpclsQueryTitle
+ 0001:00000E18       recfldercls_wpclsUnInitData
+ 0001:000009A4       recflder_UpdateLastQuery
+ 0001:000009F4       recflder_wpInitData
+ 0001:00000B18       recflder_wpMenuItemSelected
+ 0001:00000A5C       recflder_wpModifyPopupMenu
+ 0001:00000CF8       recflder_wpRestoreState
+ 0001:00000C88       recflder_wpSaveState
+ 0000:00000000  Imp  RecordCClassData     (record.RecordCClassData)
+ 0000:00000000  Imp  RecordClassData      (record.RecordClassData)
+ 0004:0000000C       RecordFolderCClassData
+ 0004:00000004       RecordFolderClassData
+ 0001:00000404       RecordFolderNewClass
+ 0000:00000000  Imp  RecordNewClass       (record.RecordNewClass)
+ 0001:00000E7C       SendQueryToRecordClass
+ 0003:00000000       sig32
+ 0000:00000000  Imp  SOMClassClassData    (som.3)
+ 0000:00000000  Imp  SOMClassMgrClassData (som.6)
+ 0000:00000000  Imp  SOMClassMgrObject    (som.7)
+ 0000:00000000  Imp  somConstructClass    (som.28)
+ 0000:00000000  Imp  somDataResolve       (som.47)
+ 0000:00000000  Imp  somEnvironmentNew    (som.30)
+ 0000:00000000  Imp  SOMError             (som.9)
+ 0000:00000000  Imp  somIdFromString      (som.31)
+ 0000:00000000  Imp  SOMObjectCClassData  (som.13)
+ 0000:00000000  Imp  somParentResolve     (som.33)
+ 0000:00000000  Imp  somPrintf            (som.35)
+ 0000:00000000  Imp  somResolve           (som.37)
+ 0000:00000000  Imp  somTestCls           (som.42)
+ 0000:00000000  Imp  SOM_TraceLevel       (som.18)
+ 0004:00000858       stderr
+ 0004:00000850       stdin
+ 0004:00000854       stdout
+ 0001:00002EA4       strspn
+ 0001:00002EE0       strupr
+ 0000:00000000  Imp  WinMessageBox        (PMWIN.789)
+ 0000:00000000  Imp  WPFolderNewClass     (PMWP.15)
+ 0000:00000000  Imp  WPObjectClassData    (PMWP.23)
+ 0004:0000122C       _Async_exception_flag
+ 0001:00002B18       _bisex_callback
+ 0001:0000240C       _bit_test_set
+ 0004:00001228       _broken_time_ptr
+ 0001:00002104       _critlib_except
+ 0001:00001094       _CRT_init
+ 0001:00001514       _CRT_term
+ 0004:00000860       _ctable
+ 0004:00001238       _ctype
+ 0004:0000123C       _cvt_buf_ptr
+ 0004:00000964       _daylight
+ 0004:0000084C       _dllentry
+ 0001:00001054       _DLL_InitTerm
+ 0004:000012D0       _doserrno
+ 0001:0000104C       _DosFlatToSel
+ 0001:00001044       _DosSelToFlat
+ 0004:00001264       _dttm_ptr
+ 0001:00002F50       _edcGetMessage
+ 0004:00001214       _environ
+ 0001:00002AF4       _Exception
+ 0001:00001664       _exception_dllinit
+ 0001:00001630       _exception_procinit
+ 0001:0000231C       _EXE_Exception
+ 0001:00002434       _fcloseall_weak
+ 0005:00000000       _firsteib
+ 0004:000012D8       _flags
+ 0001:00002F74       _Flush
+ 0001:0000312C       _flushb
+ 0001:0000257C       _FreeFCB
+ 0001:00002B30       _get_seglim
+ 0001:00003124       _ilog2
+ 0004:000012D4       _internal_buf_ptr
+ 0005:00000108       _lasteib
+ 0004:00001260       _lcvt_buf_ptr
+ 0001:00001F9C       _Lib_excpt
+ 0001:00002744       _ltoa
+ 0001:000015B0       _matherr
+ 0004:00000E30       _matherr_ptr
+ 0001:00002420       _Math_Exception_Def
+ 0001:00002B6C       _MesgServ
+ 0001:000015C4       _mig_eib_store
+ 0004:00001234       _osmajor
+ 0004:00001244       _osminor
+ 0004:0000096C       _osmode
+ 0004:0000126C       _pBucketArr
+ 0004:000012C4       _perror_msg_ptr
+ 0004:0000085C       _PGLOBAL_PTR
+ 0001:00002D60       _PrintErrMsg
+ 0004:00000974       _random_seed
+ 0001:00002218       _recreate_exception
+ 0001:00002B24       _Regen_exception
+ 0004:00001240       _Saved_Return_Address
+ 0001:00002DC4       _setupenv
+ 0004:000012C8       _strerror_msg_ptr
+ 0004:000012B8       _strtok_pos
+ 0004:00001230       _tempname_ptr
+ 0001:00002F30       _terminate
+ 0001:00002B0C       _Test_and_reset
+ 0001:000014B8       _test_handle
+ 0004:00000968       _timezone
+ 0004:000012BC       _tzname
+ 0004:00000970       _version
+ 0001:00002DBC       _w_raise
+ 0001:00000F40       __EDC3216
+ 0001:00000FD8       __EDCThunkProlog
+ 0001:00001694       __Exception
+ 0006:00000000       __fac
+
+  Address         Publics by Value
+
+ 0000:00000000  Imp  DosQueryHType        (DOSCALLS.224)
+ 0000:00000000  Imp  somDataResolve       (som.47)
+ 0000:00000000  Imp  DosAllocMem          (DOSCALLS.299)
+ 0000:00000000  Imp  SOMClassMgrClassData (som.6)
+ 0000:00000000  Imp  M_RecordCClassData   (record.M_RecordCClassData)
+ 0000:00000000  Imp  somEnvironmentNew    (som.30)
+ 0000:00000000  Imp  DosSetSignalExceptionFocus (DOSCALLS.378)
+ 0000:00000000  Imp  DosFreeModule        (DOSCALLS.322)
+ 0000:00000000  Imp  SOMError             (som.9)
+ 0000:00000000  Imp  SOMClassClassData    (som.3)
+ 0000:00000000  Imp  DosRaiseException    (DOSCALLS.356)
+ 0000:00000000  Imp  DosLoadModule        (DOSCALLS.318)
+ 0000:00000000  Imp  DosSetFilePtr        (DOSCALLS.256)
+ 0000:00000000  Imp  DosFreeMem           (DOSCALLS.304)
+ 0000:00000000  Imp  DosRequestMutexSem   (DOSCALLS.334)
+ 0000:00000000  Imp  M_WPObjectClassData  (PMWP.323)
+ 0000:00000000  Imp  WinMessageBox        (PMWIN.789)
+ 0000:00000000  Imp  somTestCls           (som.42)
+ 0000:00000000  Imp  RecordNewClass       (record.RecordNewClass)
+ 0000:00000000  Imp  DosExit              (DOSCALLS.234)
+ 0000:00000000  Imp  somPrintf            (som.35)
+ 0000:00000000  Imp  DosGetInfoBlocks     (DOSCALLS.312)
+ 0000:00000000  Imp  DOS32SELTOFLAT       (DOSCALLS.426)
+ 0000:00000000  Imp  somParentResolve     (som.33)
+ 0000:00000000  Imp  SOM_TraceLevel       (som.18)
+ 0000:00000000  Imp  DosQuerySysInfo      (DOSCALLS.348)
+ 0000:00000000  Imp  RecordCClassData     (record.RecordCClassData)
+ 0000:00000000  Imp  M_WPFolderNewClass   (PMWP.315)
+ 0000:00000000  Imp  DosReleaseMutexSem   (DOSCALLS.335)
+ 0000:00000000  Imp  DosWrite             (DOSCALLS.282)
+ 0000:00000000  Imp  M_RecordClassData    (record.M_RecordClassData)
+ 0000:00000000  Imp  RecordClassData      (record.RecordClassData)
+ 0000:00000000  Imp  WPFolderNewClass     (PMWP.15)
+ 0000:00000000  Imp  DosCreateMutexSem    (DOSCALLS.331)
+ 0000:00000000  Imp  DOS32TRUEGETMESSAGE  (MSG.6)
+ 0000:00000000  Imp  DOS32IQUERYMESSAGECP (MSG.8)
+ 0000:00000000  Imp  DosQueryDBCSEnv      (NLS.6)
+ 0000:00000000  Imp  WPObjectClassData    (PMWP.23)
+ 0000:00000000  Imp  DOS32FLATTOSEL       (DOSCALLS.425)
+ 0000:00000000  Imp  SOMClassMgrObject    (som.7)
+ 0000:00000000  Imp  somIdFromString      (som.31)
+ 0000:00000000  Imp  somConstructClass    (som.28)
+ 0000:00000000  Imp  somResolve           (som.37)
+ 0000:00000000  Imp  SOMObjectCClassData  (som.13)
+ 0000:00000000  Imp  M_RecordNewClass     (record.M_RecordNewClass)
+ 0001:00000404       RecordFolderNewClass
+ 0001:00000854       M_RecordFolderNewClass
+ 0001:000009A4       recflder_UpdateLastQuery
+ 0001:000009F4       recflder_wpInitData
+ 0001:00000A5C       recflder_wpModifyPopupMenu
+ 0001:00000B18       recflder_wpMenuItemSelected
+ 0001:00000C88       recflder_wpSaveState
+ 0001:00000CF8       recflder_wpRestoreState
+ 0001:00000D6C       recfldercls_wpclsQueryTitle
+ 0001:00000DAC       recfldercls_wpclsInitData
+ 0001:00000E18       recfldercls_wpclsUnInitData
+ 0001:00000E7C       SendQueryToRecordClass
+ 0001:00000F40       __EDC3216
+ 0001:00000FD8       __EDCThunkProlog
+ 0001:00001044       _DosSelToFlat
+ 0001:0000104C       _DosFlatToSel
+ 0001:00001054       _DLL_InitTerm
+ 0001:00001094       _CRT_init
+ 0001:000014B8       _test_handle
+ 0001:00001514       _CRT_term
+ 0001:000015B0       _matherr
+ 0001:000015C4       _mig_eib_store
+ 0001:00001630       _exception_procinit
+ 0001:00001664       _exception_dllinit
+ 0001:00001694       __Exception
+ 0001:00001F9C       _Lib_excpt
+ 0001:00002104       _critlib_except
+ 0001:00002218       _recreate_exception
+ 0001:0000231C       _EXE_Exception
+ 0001:0000240C       _bit_test_set
+ 0001:00002420       _Math_Exception_Def
+ 0001:00002434       _fcloseall_weak
+ 0001:00002448       fflush
+ 0001:000024D8       free
+ 0001:0000257C       _FreeFCB
+ 0001:00002644       getenv
+ 0001:00002744       _ltoa
+ 0001:000027DC       malloc
+ 0001:00002AF4       _Exception
+ 0001:00002B0C       _Test_and_reset
+ 0001:00002B18       _bisex_callback
+ 0001:00002B24       _Regen_exception
+ 0001:00002B30       _get_seglim
+ 0001:00002B6C       _MesgServ
+ 0001:00002D60       _PrintErrMsg
+ 0001:00002DBC       _w_raise
+ 0001:00002DC4       _setupenv
+ 0001:00002EA4       strspn
+ 0001:00002EE0       strupr
+ 0001:00002F30       _terminate
+ 0001:00002F50       _edcGetMessage
+ 0001:00002F74       _Flush
+ 0001:00003124       _ilog2
+ 0001:0000312C       _flushb
+ 0003:00000000       sig32
+ 0003:00000012       DOSGETMESSAGE
+ 0003:00000012       Dos32GetMessage
+ 0003:00000012       DOS32GETMESSAGE
+ 0003:00000012       DosGetMessage
+ 0004:00000000       DefaultClassTitle
+ 0004:00000004       RecordFolderClassData
+ 0004:0000000C       RecordFolderCClassData
+ 0004:00000014       M_RecordFolderClassData
+ 0004:00000018       M_RecordFolderCClassData
+ 0004:0000084C       _dllentry
+ 0004:00000850       stdin
+ 0004:00000854       stdout
+ 0004:00000858       stderr
+ 0004:0000085C       _PGLOBAL_PTR
+ 0004:00000860       _ctable
+ 0004:00000964       _daylight
+ 0004:00000968       _timezone
+ 0004:0000096C       _osmode
+ 0004:00000970       _version
+ 0004:00000974       _random_seed
+ 0004:00000E30       _matherr_ptr
+ 0004:00001214       _environ
+ 0004:00001218       @BSSN_EXCEPT.C
+ 0004:00001228       _broken_time_ptr
+ 0004:0000122C       _Async_exception_flag
+ 0004:00001230       _tempname_ptr
+ 0004:00001234       _osmajor
+ 0004:00001238       _ctype
+ 0004:0000123C       _cvt_buf_ptr
+ 0004:00001240       _Saved_Return_Address
+ 0004:00001244       _osminor
+ 0004:00001248       @BSSrecflder.c
+ 0004:00001250       @BSSEDCINIT.C
+ 0004:00001260       _lcvt_buf_ptr
+ 0004:00001264       _dttm_ptr
+ 0004:00001268       errno
+ 0004:0000126C       _pBucketArr
+ 0004:000012B4       hmodThisClass
+ 0004:000012B8       _strtok_pos
+ 0004:000012BC       _tzname
+ 0004:000012C4       _perror_msg_ptr
+ 0004:000012C8       _strerror_msg_ptr
+ 0004:000012CC       @BSSPRTEMSG.C
+ 0004:000012D0       _doserrno
+ 0004:000012D4       _internal_buf_ptr
+ 0004:000012D8       _flags
+ 0005:00000000       _firsteib
+ 0005:00000108       _lasteib
+ 0006:00000000       __fac
+
+Program entry point at 0001:1054

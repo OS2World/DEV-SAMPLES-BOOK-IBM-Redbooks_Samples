@@ -1,0 +1,10 @@
+#define INCL_WIN
+#include <os2.h>
+#include "res.h"
+
+MENU ID_CXTMENU_RECFLDER LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   MENUITEM "~Telephone List - Find...", IDM_QUERY
+   MENUITEM "~Restart Record Server", IDM_RESTART_SERVER
+END
+

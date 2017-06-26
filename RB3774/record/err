@@ -1,0 +1,108 @@
+
+Operating System/2 Program Maintenance Utility
+Version 2.000.000 Dec 02 1991
+Copyright (C) IBM Corporation 1988-1991.
+Copyright (C) Microsoft Corp. 1988-1991.
+All rights reserved.
+
+	icc /c /Ge- /Gd- /Se /Re /ss /Ms /Gm+ -IC:\toolkt20\c\os2h -c recflder.c
+	link386 /noi /map /nol /nod /exepack /packcode /packdata /align:16 recflder.obj,recflder.dll,,som.lib os2386.lib dde4sbs.lib dde4nbs.lib,recflder;
+	rc recflder.res recflder.dll
+Operating System/2  Resource Compiler
+Version 2.00.000 Nov 9 1991
+(C) Copyright IBM Corporation 1988-1991
+(C) Copyright Microsoft Corp. 1985-1991
+All rights reserved.
+
+
+Reading binary resource file recflder.res
+
+.
+Writing resources to OS/2 v2.0 Linear .EXE file
+Writing 1 DEMAND resource object(s)
+  Writing:  72 bytes in 1 page(s)
+    25857.3 (71 bytes)
+
+	mapsym recflder.map
+
+Operating System/2 Symbol File Generator
+Version 2.000.000 Feb 05 1992
+Copyright (C) IBM Corporation 1988-1991.
+Copyright (C) Microsoft Corp. 1988-1991.
+All rights reserved.
+
+
+Program entry point at 0001:1054
+
+Operating System/2 Program Maintenance Utility
+Version 2.000.000 Dec 02 1991
+Copyright (C) IBM Corporation 1988-1991.
+Copyright (C) Microsoft Corp. 1988-1991.
+All rights reserved.
+
+	sc -v -r record.csc
+	icc /c /Ge- /Gd- /Se /Re /ss /Mp /Gm+ -Ic:\toolkt20\c\os2h -c record.c
+	link386 /noi /map /nol /nod  /align:16 record.obj,record.dll,,som.lib DDE4MBS DDE4MBM  os2386,record;
+	rc record.res record.dll
+Operating System/2  Resource Compiler
+Version 2.00.000 Nov 9 1991
+(C) Copyright IBM Corporation 1988-1991
+(C) Copyright Microsoft Corp. 1985-1991
+All rights reserved.
+
+
+Reading binary resource file record.res
+
+.
+Writing resources to OS/2 v2.0 Linear .EXE file
+Writing 1 DEMAND resource object(s)
+  Writing:  888 bytes in 1 page(s)
+    200.1 (888 bytes)
+
+	mapsym record.map
+
+Operating System/2 Symbol File Generator
+Version 2.000.000 Feb 05 1992
+Copyright (C) IBM Corporation 1988-1991.
+Copyright (C) Microsoft Corp. 1988-1991.
+All rights reserved.
+
+
+Program entry point at 0001:61b8
+
+Operating System/2 Program Maintenance Utility
+Version 2.000.000 Dec 02 1991
+Copyright (C) IBM Corporation 1988-1991.
+Copyright (C) Microsoft Corp. 1988-1991.
+All rights reserved.
+
+	icc /c /Ti /Gd- /Se /Re /ss /Ms /Gm+ /D__MIG_LIB__ -Foserver.obj server.c
+	LINK386  /NOE /NOD /ALIGN:16 /EXEPACK /M /C @server.l
+
+Operating System/2 LX (Linear Executable) Linker
+Version 2.00.000 Feb 25 1992
+Copyright (C) IBM Corporation 1988-1992.
+Copyright (C) Microsoft Corp. 1988-1992.
+All rights reserved.
+
+Object Modules [.obj]: /NOE /NOD /ALIGN:16 /EXEPACK /M /C server.obj 
+Run File [server.exe]: server.exe   
+List File [server.map]: server.map   
+Libraries [.lib]: DDE4MBS + DDE4MBM  + os2386    
+Definitions File [nul.def]: server.def   
+	rc server.res server.exe
+Operating System/2  Resource Compiler
+Version 2.00.000 Nov 9 1991
+(C) Copyright IBM Corporation 1988-1991
+(C) Copyright Microsoft Corp. 1985-1991
+All rights reserved.
+
+
+Reading binary resource file server.res
+
+.
+Writing resources to OS/2 v2.0 Linear .EXE file
+Writing 1 DEMAND resource object(s)
+  Writing:  320 bytes in 1 page(s)
+    100.4 (320 bytes)
+
