@@ -1,0 +1,71 @@
+#include <string.h>
+
+#define INCL_WIN
+#define INCL_DOS
+#include <os2.h>
+
+#define GEQueryDesktop_Class_Source
+
+#pragma checkout(suspend)
+#include "qdesk.ih"
+#pragma checkout(resume)
+
+#include <wpfolder.h>
+
+SOM_Scope BOOL   SOMLINK qt_wpSetup
+    (GEQueryDesktop *somSelf, PSZ pszSetupString)
+{
+         CHAR       szValue[CCHMAXPATH];
+         ULONG      cbBuffer;
+         ULONG      cb;
+         SOMAny    *somDesktop;
+         PSZ        pszRealName;
+         CHAR       ObjectName[50];
+
+cbBuffer = sizeof(szValue);
+
+if (_wpScanSetupString(somSelf, pszSetupString, "SHAREMEM", szValue, &cbBuffer))
+   {
+   if (!DosGetNamedSharedMem((PVOID *) &pszRealName, szValue, PAG_WRITE))
+      {
+      strcpy(ObjectName, pszRealName);
+      somDesktop = _wpclsQueryFolder(_WPObject, ObjectName, TRUE);
+      cb = CCHMAXPATH;
+      _wpQueryRealName(somDesktop, pszRealName, &cb, TRUE);
+
+      DosFreeMem(pszRealName);
+      }
+   }
+
+return (parent_wpSetup(somSelf, pszSetupString));
+}
+
+#undef SOM_CurrentClass
+#define SOM_CurrentClass SOMMeta
+
+SOM_Scope ULONG SOMLINK qtM_wpclsQueryStyle(M_GEQueryDesktop *somSelf)
+{
+return (parent_wpclsQueryStyle(somSelf) | CLSSTYLE_NEVERTEMPLATE);
+}
+
+
+SOM_Scope BOOL   SOMLINK geqdesktop_wpSetup(GEQueryDesktop *somSelf,
+                PSZ pszSetupString)
+{
+    GEQueryDesktopData *somThis = GEQueryDesktopGetData(somSelf);
+    GEQueryDesktopMethodDebug("GEQueryDesktop","geqdesktop_wpSetup");
+
+    return (parent_wpSetup(somSelf,pszSetupString));
+}
+
+#undef SOM_CurrentClass
+#define SOM_CurrentClass SOMMeta
+SOM_Scope ULONG   SOMLINK geqdesktopcls_wpclsQueryStyle(M_GEQueryDesktop *somSelf)
+{
+    /* M_GEQueryDesktopData *somThis = M_GEQueryDesktopGetData(somSelf); */
+    M_GEQueryDesktopMethodDebug("M_GEQueryDesktop","gedesktopcls_wpclsQueryStyle");
+
+    return (parent_wpclsQueryStyle(somSelf));
+}
+
+

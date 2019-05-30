@@ -1,0 +1,9 @@
+Arg window 
+CALL VpWindow window,'SETTITLE','Warning'
+Parse var Topic . . expdir 
+/* Set item value  Text */
+CALL VpSetItemValue window,1005,'A directory or file with the name' translate(substr(expdir,4)) ,
+     'already exists in the root directory of drive' left(expdir,2)'.'||'0d'x||'Either change the directory name' ,
+     'and click on Ok or select Overwrite to delete the existing file/directory first or select Cancel.'
+/* Set item value  Entry Field */
+CALL VpSetItemValue window,1003,expdir

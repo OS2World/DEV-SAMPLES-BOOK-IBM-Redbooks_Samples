@@ -1,0 +1,33 @@
+Arg window self
+
+add = 1;
+/* Get item value  Entry Field */
+value = VpGetItemValue(window,1000)
+if value = ''
+  then response=VpMessageBox(window,'Error','Give a new name for .INI file')
+else do
+     if pos('.', value) = 0
+     then value = value||'.ini'
+     value = drive'\'value
+     if stream(value, 'C', 'query exists') <> ""
+     then do
+          response=VpMessageBox(window,"Warning",'INI File' value 'already exists'||'0D'x||'Do you want to overwrite?','YESNO')
+          if response = 'NO'
+          then do
+               /* Set item value  Entry Field */
+               CALL VpSetItemValue window,1000,''
+               return
+               end
+          else '@DEL' value
+          add = 0
+          end
+     '@MAKEINI' value filename
+     if rc > 0
+     then response=VpMessageBox(window,'Error','Cannot create .INI file '|| Value)
+     else do
+       response=VpMessageBox(window,'INFO','INI file '||Value' created successfully.')
+       if add > 0 then newininame = value
+       CALL VpWindow window,'CLOSE'
+       end
+     end
+CALL VpNotify window,''

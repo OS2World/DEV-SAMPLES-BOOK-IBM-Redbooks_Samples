@@ -1,0 +1,16 @@
+Arg window fromtopic
+
+if newininame <> ""
+/* Add item sorted ascending  List Box */
+then do
+     CALL VpAddItem window,1000,'ASCENDING',newininame
+     newininame = ""
+     end 
+if deleteselected <> 0
+then do
+     /* Get index of first selected value  List Box */
+     index=VpGetIndex(window,1000,'SELECTED',0)
+     /* Delete a list item  List Box */
+     CALL VpDeleteItem window,1000,index
+     deleteselected = 0
+     end

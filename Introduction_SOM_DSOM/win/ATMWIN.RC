@@ -1,0 +1,49 @@
+#include "cldef.h"
+
+STRINGTABLE
+      {
+
+            ATM_I_ID,    "Welcome to SOMBank"
+            ATM_I_PIN,   "Welcome to SOMBank"
+            ATM_I_ACCT,  "Your Account Types"
+            ATM_I_WID,   "SOMBank Transactions"
+            ATM_I_AMT,   "SOMBank WithDraw/Deposit"
+            ATM_I_RES,   "Thank You"
+
+            ATM_P_ID,    "Please Enter Your ID"        // Can I include comments?
+            ATM_P_PIN,   "Please Enter Your PIN"
+            ATM_P_ACCT,  "Please Select Account"
+            ATM_P_WID,   "Please Select Transaction Type"
+            ATM_P_AMT,   "Please Enter Amount"
+            ATM_P_RES,   "Transaction Results..."
+
+            ATM_E_NODATA,   "Data Must Be Entered"
+            ATM_E_SHORTID,  "ID must be 4 digits, please re-enter"
+            ATM_E_SHORTPIN, "PIN must be 4 digits, please re-enter"
+            ATM_E_IDNF,     "Customer ID Not Found"
+            ATM_E_BADPIN,   "PIN Entered is Invalid"
+            ATM_E_XCAN,     "Transaction Cancelled"
+
+            ATM_S_INIT,   "Initializing SOM"
+            ATM_S_INITC,  "SOM : Initialization Complete"
+            ATM_S_VALPIN, "SOM : Validating PIN/PW"
+
+            ATM_C_INITC,    "ATM Initialization Complete"
+            ATM_C_SHORTID,  "ID Entered was less than 4 chars"
+            ATM_C_SHORTPIN, "PIN Entered was less than 4 chars"
+            ATM_C_DISPRES,  "Displaying Results"
+            ATM_C_CLR,      "Entry Field Cleared"
+
+            ATM_R_INQUIRE,  "You're current balance is ..."
+            ATM_R_DEPOSIT,  "Deposit Transaction Results..."
+            ATM_R_WITHDRAW, "Withdrawal Transaction Results..."
+
+            ATM_PRESS_OK,  "Press OK to Continue"
+
+            ATM_CHECKING,  "Checking"
+            ATM_SAVINGS,   "Savings"
+            ATM_WITHDRAW,  "Withdraw"
+            ATM_DEPOSIT,   "Deposit"
+            ATM_INQUIRE,   "Inquire"
+      }
+

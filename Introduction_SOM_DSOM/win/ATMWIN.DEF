@@ -1,0 +1,12 @@
+;------------------------------------
+; SOMATM.DEF module definition file
+;------------------------------------
+
+NAME           SOMATM
+DESCRIPTION    'SOM ATM'
+EXETYPE        WINDOWS
+STUB           'WINSTUB.EXE'
+CODE           PRELOAD MOVEABLE DISCARDABLE
+DATA           PRELOAD MOVEABLE MULTIPLE
+HEAPSIZE       1024
+STACKSIZE      32768

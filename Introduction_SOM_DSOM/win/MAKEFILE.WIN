@@ -1,0 +1,428 @@
+SC         = somc
+CC         = cl
+IMPLIB     = implib
+RC         = rc
+RCFLAGS    = -nologo
+CFLAGS     = -nologo -AL -Zp1 -c -Gs -GA -Z7 -D_WIN16_
+CFLAGSDLL  = -nologo -AL -Zp1 -c -Gs -GA -Z7 -D_WIN16_
+LINKER     = link
+LFLAGS     = /nologo /ONERROR:NOEXE /CO /NOE
+LIBLIST    = llibcew libw $(SOMBASE)\lib\somtk
+LIBLISTD   = ldllcew libw $(SOMBASE)\lib\somtk
+DLLLIST    = fileutil.dll  \
+             cdb.dll       \
+             customer.dll  \
+             bdb.dll       \
+             account.dll   \
+             svrbrokr.dll  \
+             banksvr.dll   \
+             clientcl.dll
+EXELIST    = adminwin.exe atmwin.exe
+
+SOMIRFILE  = som.ir
+
+STDINCLUDE = $(SOMBASE)\include
+
+FU_OBJS    = fileutil.o fileini.o check.o
+CDB_OBJS   = cdb.o cdbini.o check.o
+CUST_OBJS  = customer.o custmgr.o custini.o check.o
+BDB_OBJS   = bdb.o bdbini.o check.o
+ACC_OBJS   = account.o accmgr.o accini.o checking.o savings.o fee.o check.o
+SB_OBJS    = svrbrokr.o brokrini.o check.o
+BSVR_OBJS  = banksvr.o bsvrini.o check.o
+CLC_OBJS   = clientcl.o clcini.o check.o
+
+CLIENTINCLS= bankdef.h \
+             clientcl.h \
+             cldef.h
+
+IDLLIST    = accmgr.idl   \
+             account.idl  \
+             banksvr.idl  \
+             bdb.idl      \
+             cdb.idl      \
+             checking.idl \
+             clientcl.idl \
+             custmgr.idl  \
+             customer.idl \
+             fee.idl      \
+             fileutil.idl \
+             savings.idl  \
+             sberr.idl    \
+             svrbrokr.idl
+
+.SUFFIXES: .obj .o .c .ih .idl .h .lib .def .rc .res
+
+.c.obj:
+  $(CC) -I. -I$(STDINCLUDE) $(CFLAGS) $<
+
+.c.o:
+  $(CC) -I. -I$(STDINCLUDE) $(CFLAGSDLL) -Fo$*.o $<
+
+.idl.ih:
+  $(SC) -sih -p -c $<
+
+.idl.h:
+  $(SC) -sh -p -c $<
+
+.idl.def:
+  $(SC) -sdef $<
+
+.def.lib:
+  $(IMPLIB) /nologo $*.lib $<
+
+.rc.res:
+  $(RC) $(RCFLAGS) -r $<
+
+all: $(STDINCLUDE)\somcorba.bld $(DLLLIST) $(EXELIST) $(SOMIRFILE)
+
+$(STDINCLUDE)\somcorba.bld:
+  @echo This sample requires that the SOM toolkit bindings have been built
+  @echo with SOMCORBA style object references.
+  @exit 1
+
+fileutil.dll: $(FU_OBJS) fileutil.def
+  $(LINKER) $(LFLAGS) @<<fileutil.rsp
+$(FU_OBJS)
+$@
+nul
+$(LIBLISTD)
+$*.def;
+<<
+
+cdb.dll:  $(CDB_OBJS) cdb.def fileutil.lib
+  $(LINKER) $(LFLAGS) @<<cdb.rsp
+$(CDB_OBJS)
+$@
+nul
+$(LIBLISTD) fileutil.lib
+$*.def;
+<<
+
+
+banksvr.dll:  $(BSVR_OBJS) banksvr.def cdb.lib bdb.lib
+  $(LINKER) $(LFLAGS) @<<bsvr.rsp
+$(BSVR_OBJS)
+$@
+nul
+$(LIBLISTD) cdb.lib bdb.lib
+$*.def;
+<<
+
+customer.dll: $(CUST_OBJS) customer.def cdb.lib banksvr.lib
+  $(LINKER) $(LFLAGS) @<<customer.rsp
+$(CUST_OBJS)
+$@
+nul
+$(LIBLISTD) cdb.lib banksvr.lib
+$*.def;
+<<
+
+bdb.dll:  $(BDB_OBJS) bdb.def fileutil.lib
+  $(LINKER) $(LFLAGS) @<<bdb.rsp
+$(BDB_OBJS)
+$@
+nul
+$(LIBLISTD) fileutil.lib
+$*.def;
+<<
+
+account.dll: $(ACC_OBJS)  account.def bdb.lib banksvr.lib
+  $(LINKER) $(LFLAGS) @<<account.rsp
+$(ACC_OBJS)
+$@
+nul
+$(LIBLISTD) bdb.lib banksvr.lib
+$*.def;
+<<
+
+svrbrokr.dll:  $(SB_OBJS) svrbrokr.def
+  $(LINKER) $(LFLAGS) @<<svrbrokr.rsp
+$(SB_OBJS)
+$@
+nul
+$(LIBLISTD)
+$*.def;
+<<
+
+clientcl.dll:  $(CLC_OBJS) clientcl.def account.lib customer.lib svrbrokr.lib
+  $(LINKER) $(LFLAGS) @<<clientcl.rsp
+$(CLC_OBJS)
+$@
+nul
+$(LIBLISTD) account.lib customer.lib svrbrokr.lib
+$*.def;
+<<
+
+adminwin.exe: adminwin.obj check.obj clientcl.lib adminwin.res
+  $(LINKER) $(LFLAGS) @<<adminwin.rsp
+$*.obj check.obj
+$@
+nul
+$(LIBLIST)  clientcl.lib
+$*.def;
+<<
+  $(RC) $(RCFLAGS) $*
+
+atmwin.exe: atmwin.obj check.obj  clientcl.lib atmwin.res
+  $(LINKER) $(LFLAGS) @<<atmwin.rsp
+$*.obj check.obj
+$@
+nul
+$(LIBLIST) clientcl.lib
+$*.def;
+<<
+  $(RC) $(RCFLAGS) $*
+
+atmwin.obj:   atmwin.c $(CLIENTINCLS)
+adminwin.obj: adminwin.c $(CLIENTINCLS)
+
+accini.o:   accini.c    \
+            accmgr.h    \
+            account.h   \
+            bdb.h       \
+            checking.h  \
+            fee.h       \
+            savings.h   \
+            sberr.h
+
+accmgr.o:   accmgr.c    \
+            accmgr.ih   \
+            accmgr.h    \
+            bdb.h       \
+            cdb.h       \
+            banksvr.h   \
+            sberr.h     \
+            bankdef.h
+
+account.o:  account.c   \
+            account.ih  \
+            account.h   \
+            bdb.h       \
+            cdb.h       \
+            banksvr.h   \
+            bankdef.h
+
+banksvr.o:  banksvr.c   \
+            banksvr.ih  \
+            banksvr.h   \
+            cdb.h       \
+            bdb.h       \
+            sberr.h
+
+bdb.o:      bdb.c       \
+            bdb.ih      \
+            bdb.h       \
+            fileutil.h  \
+            bankdef.h
+
+bdbini.o:   bdbini.c    \
+            bdb.h
+
+cdb.o:      cdb.c       \
+            cdb.ih      \
+            cdb.h       \
+            fileutil.h  \
+            bankdef.h
+
+cdbini.o:   cdbini.c    \
+            cdb.h
+
+checking.o: checking.c  \
+            checking.ih \
+            checking.h  \
+            fee.h       \
+            account.h   \
+            bdb.h       \
+            cdb.h       \
+            banksvr.h   \
+            bankdef.h
+
+clientcl.o: clientcl.c    \
+            clientcl.ih   \
+            clientcl.h    \
+            svrbrokr.h    \
+            savings.h     \
+            checking.h    \
+            customer.h    \
+            account.h     \
+            accmgr.h      \
+            cldef.h       \
+            bdb.h         \
+            cdb.h         \
+            fee.h         \
+            sberr.h       \
+            bankdef.h
+
+clcini.o:   clcini.c   \
+            clientcl.h
+
+custini.o:  custini.c   \
+            customer.h  \
+            custmgr.h   \
+            cdb.h
+
+custmgr.o:  custmgr.c   \
+            custmgr.ih  \
+            custmgr.h   \
+            bdb.h       \
+            cdb.h       \
+            banksvr.h   \
+            bankdef.h
+
+customer.o: customer.c  \
+            customer.ih \
+            customer.h  \
+            cdb.h       \
+            bdb.h       \
+            banksvr.h   \
+            bankdef.h
+
+fee.o:      fee.c       \
+            fee.ih      \
+            fee.h       \
+            bankdef.h
+
+fileini.o:  fileini.c   \
+            fileutil.h
+
+fileutil.o: fileutil.c  \
+            fileutil.ih \
+            fileutil.h  \
+            sberr.h     \
+            bankdef.h
+
+svrbrokr.o: svrbrokr.c  \
+            svrbrokr.h  \
+            sberr.h     \
+            svrbrokr.ih
+
+brokrini.o: brokrini.c  \
+            svrbrokr.h
+
+savings.o:  savings.c   \
+            savings.ih  \
+            savings.h   \
+            account.h   \
+            bdb.h       \
+            cdb.h       \
+            banksvr.h   \
+            bankdef.h
+
+sberr.h:     sberr.idl
+account.ih:  account.idl
+account.h:   account.idl
+accmgr.ih:   accmgr.idl
+accmgr.h:    accmgr.idl
+bdb.ih:      bdb.idl
+fee.ih:      fee.idl
+fee.h:       fee.idl
+fileutil.ih: fileutil.idl
+fileutil.h:  fileutil.idl
+checking.ih: checking.idl
+checking.h:  checking.idl
+savings.ih:  savings.idl
+savings.h:   savings.idl
+cdb.ih:      cdb.idl
+customer.ih: customer.idl
+customer.h:  customer.idl cdb.h
+custmgr.ih:  custmgr.idl
+custmgr.h:   custmgr.idl cdb.h
+banksvr.ih:  banksvr.idl
+banksvr.h:   banksvr.idl bdb.h cdb.h
+svrbrokr.h:  svrbrokr.idl
+svrbrokr.ih: svrbrokr.idl
+clientcl.h:  clientcl.idl
+clientcl.ih: clientcl.idl
+
+bdb.h:       bdb.idl
+ $(SC) -sh -p -c -mtcconsts bdb.idl
+
+cdb.h:         cdb.idl
+ $(SC) -sh -p -c -mtcconsts cdb.idl
+
+atmwin.res: atmwin.rc
+adminwin.res: adminwin.rc
+
+check.obj:    check.c sberr.h
+check.o:      check.c sberr.h
+
+check.c:
+  @echo check.c is not found.  It is available on the
+  @echo original SOMBank diskette.
+  exit 1
+
+bankdef.h:
+  @echo bankdef.h is not found.  It is available on the
+  @echo original SOMBank diskette.
+  exit 1
+
+cldef.h:
+  @echo cldef.h is not found.  It is available on the
+  @echo original SOMBank diskette.
+  exit 1
+
+fileutil.def: fileutil.idl
+
+svrbrokr.def: svrbrokr.idl
+
+cdb.def:  cdb.idl
+
+clientcl.def: clientcl.idl
+
+customer.def: customer.idl custmgr.idl
+   $(SC) -sdef customer.idl
+   $(SC) -sdef custmgr.idl
+   mergedef customer.def custmgr.def
+
+bdb.def: bdb.idl
+
+account.def: account.idl accmgr.idl savings.idl checking.idl fee.idl
+  $(SC) -sdef account.idl
+  $(SC) -sdef accmgr.idl
+  $(SC) -sdef checking.idl
+  $(SC) -sdef fee.idl
+  $(SC) -sdef savings.idl
+  mergedef account.def accmgr.def checking.def savings.def fee.def
+
+banksvr.def: banksvr.idl
+
+$(SOMIRFILE): $(IDLLIST)
+  $(SC) -sir -u *.idl
+
+clean:
+  -del *.obj
+  -del *.o
+  -del *.dll
+  -del *.exe
+  -del *.lib
+  -del *.ih
+  -del *.res
+  -del svrbrokr.def
+  -del fileutil.def
+  -del account.def
+  -del customer.def
+  -del cdb.def
+  -del bdb.def
+  -del banksvr.def
+  -del clientcl.def
+  -del fee.def
+  -del checking.def
+  -del savings.def
+  -del custmgr.def
+  -del accmgr.def
+  -del svrbrokr.h
+  -del cdb.h
+  -del bdb.h
+  -del banksvr.h
+  -del fileutil.h
+  -del customer.h
+  -del custmgr.h
+  -del savings.h
+  -del checking.h
+  -del account.h
+  -del fee.h
+  -del accmgr.h
+  -del clientcl.h
+  -del sberr.h
+

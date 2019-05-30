@@ -1,0 +1,5 @@
+Arg window self
+parse var Topic . . expdir
+'@DELALL "'expdir'"'
+call export window Topic 
+CALL VpWindow window,'CLOSE'

@@ -1,0 +1,2 @@
+nmake pwfolder.mak > err
+

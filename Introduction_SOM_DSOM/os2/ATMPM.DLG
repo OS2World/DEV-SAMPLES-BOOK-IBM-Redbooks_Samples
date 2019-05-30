@@ -1,0 +1,27 @@
+
+DLGTEMPLATE 30 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Product Information", 30, 12, 6, 231, 129, WS_VISIBLE, 
+            FCF_TITLEBAR
+    BEGIN
+        CTEXT           "SOMBank ATM Application", 101, 47, 118, 141, 8, 
+                        DT_VCENTER
+        CTEXT           "Version 2.00 (May 94)", 102, 47, 108, 141, 8, 
+                        DT_VCENTER
+        ICON            10, 103, 107, 90, 20, 16, WS_GROUP
+        CTEXT           "Developed by the", 104, 25, 81, 182, 8, DT_VCENTER
+        CTEXT           "Austin Center", 106, 25, 62, 182, 8, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x000000FFL
+        CTEXT           "for Redbook GG24-4357", 107, 25, 54, 182, 8, 
+                        DT_VCENTER
+        CTEXT           """SOMobjects: A Practical Introduction", 108, 24, 
+                        45, 182, 8, DT_VCENTER
+        PUSHBUTTON      "Ok", DID_OK, 94, 3, 40, 14
+        CTEXT           "to SOM and DSOM""", 31, 74, 36, 84, 8, DT_VCENTER
+        CTEXT           "International Technical Support Organization", 33, 
+                        6, 71, 220, 8, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x000000FFL
+        LTEXT           "(Available Summer 1994)", 34, 63, 25, 107, 8
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+    END
+END

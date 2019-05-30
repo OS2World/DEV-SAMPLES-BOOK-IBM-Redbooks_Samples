@@ -1,0 +1,18 @@
+; Module Definition file.
+
+NAME         TTFN
+
+DESCRIPTION             'TTFN  Created by Tim Sennitt'
+PROTMODE
+
+
+STUB                    'OS2STUB.EXE'
+
+HEAPSIZE                        10000
+
+
+
+
+
+
+

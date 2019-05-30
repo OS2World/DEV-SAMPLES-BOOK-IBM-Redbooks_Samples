@@ -1,0 +1,177 @@
+/* File used by MAKEINI.EXE to create a USER.INI                      */
+/* Use the command                                                    */
+/*    MAKEINI NEW.INI INI.RC                                          */
+/* to create the file NEW.INI.                                        */
+/* To copy over the OS2.IN, use a DOS boot diskette or the            */
+/* OS2 Install diskette ESCed to the command line to copy NEW.INI     */
+/* over the existing OS2.INI that is to be replaced.                  */
+/* To use NEW.INI change the SET USER_INI=OS2.INI line in CONFIG.SYS  */
+/* to SET USER_INI=NEW.INI.                                           */
+/* Note that if NEW.INI already exists, then it is updated.           */
+
+/* This desktop replacement RC file creates a new desktop that has    */
+/* one folder, containing a template and a datafile, and the Lotus    */
+/* 123 program object and the EPM editor Object                       */
+CODEPAGE 850
+
+STRINGTABLE
+BEGIN
+
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+
+  "PM_ControlPanel"    "BorderWidth"          "4"
+  "PM_ASSOC_TYPE"      "Spreadsheet"          ""
+  "PM_ASSOC_TYPE"      "Wordprocessor"        ""
+  "PM_ASSOC_TYPE"      "Drawings"             ""
+
+  "PM_DEVICE_DRIVERS"  "IBMNULL"            "C:\OS2\DLL\IBMNULL\IBMNULL.DRV"
+  "PM_Font_Drivers"    "PMATM"              "\OS2\DLL\PMATM.DLL"
+  "PM_Fonts"           "SYSMONO"            "\OS2\DLL\SYSMONO.FON"
+  "PM_Fonts"           "COURIER"            "\OS2\DLL\COURIER.FON"
+  "PM_Fonts"           "HELV"               "\OS2\DLL\HELV.FON"
+  "PM_Fonts"           "TIMES"              "\OS2\DLL\TIMES.FON"
+  "PM_Fonts"           "COURIERI"           "\OS2\DLL\COURIERI.FON"
+  "PM_Fonts"           "HELVI"              "\OS2\DLL\HELVI.FON"
+  "PM_Fonts"           "TIMESI"             "\OS2\DLL\TIMESI.FON"
+  "PM_Fonts"           "MARKSYM.OFM"        "\PSFONTS\MARKSYM.OFM"
+  "PM_Fonts"           "HELV.OFM"           "\PSFONTS\HELV.OFM"
+  "PM_Fonts"           "HELVB.OFM"          "\PSFONTS\HELVB.OFM"
+  "PM_Fonts"           "HELVBI.OFM"         "\PSFONTS\HELVBI.OFM"
+  "PM_Fonts"           "HELVI.OFM"          "\PSFONTS\HELVI.OFM"
+  "PM_Fonts"           "COUR.OFM"           "\PSFONTS\COUR.OFM"
+  "PM_Fonts"           "COURB.OFM"          "\PSFONTS\COURB.OFM"
+  "PM_Fonts"           "COURBI.OFM"         "\PSFONTS\COURBI.OFM"
+  "PM_Fonts"           "COURI.OFM"          "\PSFONTS\COURI.OFM"
+  "PM_Fonts"           "SYMB.OFM"           "\PSFONTS\SYMB.OFM"
+  "PM_Fonts"           "TNR.OFM"            "\PSFONTS\TNR.OFM"
+  "PM_Fonts"           "TNRB.OFM"           "\PSFONTS\TNRB.OFM"
+  "PM_Fonts"           "TNRBI.OFM"          "\PSFONTS\TNRBI.OFM"
+  "PM_Fonts"           "TNRI.OFM"           "\PSFONTS\TNRI.OFM"
+
+  "PM_INFO"            "Version"            "2.1"
+  "PM_IMAGECNV"        "IMAGECNVPATH"       "\OS2\IMAGECNV"
+  "SYS_DLLS"           "LoadOneTime"        "REXXINIT"
+  "SYS_DLLS"           "LoadPerProcess"     "PMCTLS"
+  "PM_SPOOLER"         "QUEUE"              "LPT1Q;"
+  "PM_SPOOLER"         "PRINTER"            "PRINTER1;"
+  /* pm_national temporarily back in */
+
+  "PM_National"  "iCountry"   "1" /* Country code (phone ID of country)    */
+  "PM_National"  "iDate"      "0" /* Date mode (0:MDY, 1:DMY, 2:YMD)       */
+  "PM_National"  "iCurrency"  "0" /* Currency mode 0: prefix, no sep       */
+                                  /*    1: suffix, no separation           */
+                                  /*    2: prefix, 1 CHAR separation       */
+                                  /*    3: suffix, 1 CHAR separation       */
+  "PM_National"  "iDigits"       "2"  /* Signif Decimal digits in Currency */
+  "PM_National"  "iTime"         "0"  /* time mode (0=12 hours clock, 1=24)*/
+  "PM_National"  "iLzero"        "0"  /* Leading zeros (0: no, 1: yes)     */
+  "PM_National"  "s1159"         "AM" /* Trailing string 0:00 to 11:59     */
+  "PM_National"  "s2359"         "PM" /* Trailing string 12:00 to 23:59    */
+  "PM_National"  "sCurrency"     "$"  /* Currency Symbol string            */
+  "PM_National"  "sThousand"     ","  /* Thousands separator string        */
+  "PM_National"  "sDecimal"      "."  /* Decimal separator string          */
+  "PM_National"  "sDate"         "-"  /* Date separator string             */
+  "PM_National"  "sTime"         ":"  /* time separator string             */
+  "PM_National"  "sList"         ","  /* List separator string.            */
+  "PM_National"  "iMeasurement"  "1"  /* 1=English, 2=Metric,              */
+                                      /* 3=Points, 4=Pica                  */
+
+  "PM_IBMBGA"    "ALTSYSFONT" "0"  /* For 8514 adapter only */
+  "PM_IBMBGA"    "FASTSS"     "0"  /* For 8514 adapter only */
+
+  "EPM"          "EPMIniPath" "\OS2\EPM.INI"
+  "PMDiary"      "IniPath"    "\OS2\PMDIARY.INI"
+/* Change default for Win-OS/2 Setup Object - R206 60555 */
+  "WINOS2"       "PM_GlobalWindows31Settings" "DPMI_MEMORY_LIMIT=64;PROGTYPE=PROG_31_STD;KBD_ALTHOME_BYPASS=1; VIDEO_SWITCH_NOTIFICATION=1;VIDEO_8514A_XGA_IOTRAP=0" 
+
+  "PM_Workplace:InstallGroups" "1" "1"
+  "PM_DefaultSetup" "MINWIN" "DESKTOP"
+
+  "PM_InstallObject" "Small Desktop;WPDesktop;?:\" "OBJECTID=<WP_DESKTOP>"
+
+  /* remove PMDDE object from workplace */
+  "PM_InstallObject" "Deleted;WPProgram;<WP_TOOLS>;DELETE" "OBJECTID=<WP_PMDDE>"
+END
+STRINGTABLE REPLACEMODE
+BEGIN
+  "PM_InstallObject" "Nowhere;WPFolder;?:\"  "OBJECTID=<WP_NOWHERE>"
+  "PM_InstallObject" "Printer;PDView;<WP_DESKTOP>" "Printer;OBJECTID=<WP_PDVIEW>"
+  "PM_InstallObject" "Network;WPNetwork;<WP_DESKTOP>" "HELPPANEL=30000;NODELETE=YES;OBJECTID=<WP_NETWORK>"
+  "PM_InstallObject" "DeScribe;WPProgram;<WP_DESKTOP>"  "EXENAME=?:\DESCRIBE\DESCRIBE.EXE;PROGTYPE=PM;NOTVISIBLE=YES;ASSOCTYPE=Wordprocessor,,;ASSOCFILTER=*.DSC,,;OBJECTID=<WP_DESCRIBE>"
+  "PM_InstallObject" "Lotus 1-2-3;WPProgram;<WP_DESKTOP>"  "EXENAME=?:\123W\123W.EXE;PROGTYPE=PM;NOTVISIBLE=YES;ASSOCTYPE=Spreadsheet,,;ASSOCFILTER=*.WK?,,;OBJECTID=<WP_LOTUS>"
+  "PM_InstallObject" "FreeLance;WPProgram;<WP_DESKTOP>"  "EXENAME=?:\FL\FL.EXE;PROGTYPE=PM;NOTVISIBLE=YES;ASSOCTYPE=Drawing,,;ASSOCFILTER=*.FLW,,;OBJECTID=<WP_FL>"
+  "PM_InstallObject" "Layout;WPFolder;<WP_DESKTOP>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=20 50 60 20;OBJECTID=<WP_LAYOUT>"
+    "PM_InstallObject" "Document.DSC;WPDataFile;<WP_LAYOUT>" "TEMPLATE=YES;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Wordprocessor,,;OBJECTID=<WP_TEMPWORD>"
+    "PM_InstallObject" "Sheet.WK3;WPDataFile;<WP_LAYOUT>" "TEMPLATE=YES;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Spreadsheet,,;OBJECTID=<WP_TEMPSHEET>"
+    "PM_InstallObject" "Drawing.FLW;WPDataFile;<WP_LAYOUT>" "TEMPLATE=YES;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Drawing,,;OBJECTID=<WP_TEMPDRAW>"
+  "PM_InstallObject" "Word Processing;WPFolder;<WP_DESKTOP>" "ICONVIEW=FLOWED;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=33 30 30 50;OBJECTID=<WP_WORDFOLDER>"
+    "PM_InstallObject" "Document.DSC;WPDataFile;<WP_WORDFOLDER>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Wordprocessor,,;OBJECTID=<WP_WORDFILE>"
+  "PM_InstallObject" "Spreadsheets;WPFolder;<WP_DESKTOP>" "ICONVIEW=FLOWED;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=1 30 30 50;OBJECTID=<WP_SHEETFOLDER>"
+    "PM_InstallObject" "Sheet.WK3;WPDataFile;<WP_SHEETFOLDER>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Spreadsheet,,;OBJECTID=<WP_SHEETFILE>"
+  "PM_InstallObject" "Drawings;WPFolder;<WP_DESKTOP>" "ICONVIEW=FLOWED;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=66 30 30 50;OBJECTID=<WP_DRAWFOLDER>"
+    "PM_InstallObject" "Drawing.FLW;WPDataFile;<WP_DRAWFOLDER>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Drawing,,;OBJECTID=<WP_DRAWFILE>"
+END
+CODEPAGE 850
+
+STRINGTABLE
+BEGIN
+
+  "PM_Colors"          "Display"               "XGA"
+  "PM_Colors"          "ActiveBorder"          "255 255 128"
+  "PM_Colors"          "ActiveTitle"           " 64 128 128"
+  "PM_Colors"          "ActiveTitleText"       "255 255 255"
+  "PM_Colors"          "ActiveTitleTextBgnd"   " 64 128 128"
+  "PM_Colors"          "AppWorkspace"          "255 255 224"
+  "PM_Colors"          "Background"            "204 204 204"
+  "PM_Colors"          "ButtonDark"            "128 128 128"
+  "PM_Colors"          "ButtonDefault"         "  0   0   0"
+  "PM_Colors"          "ButtonLight"           "255 255 255"
+  "PM_Colors"          "ButtonMiddle"          "204 204 204"
+  "PM_Colors"          "DialogBackground"      "204 204 204"
+  "PM_Colors"          "EntryField"            "255 255 204"
+  "PM_Colors"          "FieldBackground"       "204 204 204"
+  "PM_Colors"          "HelpBackground"        "255 255 255"
+  "PM_Colors"          "HelpHilite"            "  0 128 128"
+  "PM_Colors"          "HelpText"              "  0   0 128"
+  "PM_Colors"          "HiliteBackground"      " 96  96  96"
+  "PM_Colors"          "HiliteForeground"      "255 255 255"
+  "PM_Colors"          "IconText"              "  0   0   0"
+  "PM_Colors"          "InactiveBorder"        "204 204 204"
+  "PM_Colors"          "InactiveTitle"         "204 204 204"
+  "PM_Colors"          "InactiveTitleText"     "128 128 128"
+  "PM_Colors"          "InactiveTitleTextBgnd" "204 204 204"
+  "PM_Colors"          "Menu"                  "204 204 204"
+  "PM_Colors"          "MenuText"              "  0   0   0"
+  "PM_Colors"          "MenuHilite"            "204 204 204"
+  "PM_Colors"          "MenuHiliteText"        "  0   0   0"
+  "PM_Colors"          "MenuDisabledText"      "128 128 128"
+  "PM_Colors"          "OutputText"            "  0   0   0"
+  "PM_Colors"          "PageBackground"        "255 255 255"
+  "PM_Colors"          "Scrollbar"             "192 192 192"
+  "PM_Colors"          "Shadow"                "128 128 128"
+  "PM_Colors"          "ShadowHiliteBgnd"      "128 128 128"
+  "PM_Colors"          "ShadowHiliteFgnd"      "255 255 255"
+  "PM_Colors"          "ShadowText"            "128 128 128"
+  "PM_Colors"          "TitleBottom"           "128 128 128"
+  "PM_Colors"          "TitleText"             "255 255 255"
+  "PM_Colors"          "Window"                "255 255 255"
+  "PM_Colors"          "WindowFrame"           "128 128 128"
+  "PM_Colors"          "WindowStaticText"      "  0   0 128"
+  "PM_Colors"          "WindowText"            "  0   0   0"
+  "PM_DISPLAYDRIVERS"  "IBMXGA32"              "IBMXGA32"
+  "PM_DISPLAYDRIVERS"  "CURRENTDRIVER"         "IBMXGA32"
+  "PM_DISPLAYDRIVERS"  "DEFAULTDRIVER"         "IBMXGA32"
+  ""                   ""                      ""
+  "PM_DISPLAYDRIVERS"      "RESOLUTION_CHANGED"      "1"
+END
+ÿ
+

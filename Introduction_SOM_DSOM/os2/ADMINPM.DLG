@@ -1,0 +1,137 @@
+
+DLGTEMPLATE 103 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", 103, 0, 0, 196, 173, NOT FS_DLGBORDER | WS_VISIBLE
+            PRESPARAMS PP_BACKGROUNDCOLOR, 0x00FF0000L
+    BEGIN
+        LTEXT           "International Technical Support Centers", 4015, 12, 
+                        36, 170, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "SOMobjects: A Practical", 4016, 78, 22, 103, 12, 
+                        DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        CTEXT           "GG24-4357", 4013, 132, 0, 49, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, 0x532E3031L, 0x65747379L, 
+                        0x4956206DL, 0x0000004FL
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+        LTEXT           "IBM", 4014, 10, 48, 30, 13, DT_VCENTER | NOT 
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, 0x432E3231L, 0x6972756FL, 
+                        0x00007265L
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "Introduction to SOM and DSOM", 105, 53, 12, 128, 12, 
+                        DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00000000L
+    END
+END
+
+DLGTEMPLATE 104 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", 104, 0, 0, 196, 173, NOT FS_DLGBORDER | WS_VISIBLE
+            PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CCCCCCL
+    BEGIN
+        ENTRYFIELD      "", 2003, 82, 153, 37, 10, NOT ES_AUTOSCROLL | 
+                        ES_MARGIN
+        LTEXT           "Customer ID:", 4022, 10, 152, 60, 12, DT_VCENTER | 
+                        NOT WS_GROUP
+        LTEXT           "Name:", 4026, 10, 136, 30, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        LTEXT           "Branch:", 4019, 10, 120, 30, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        LTEXT           "Checking", 4021, 60, 104, 50, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        LTEXT           "Savings", 4028, 130, 104, 50, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        LTEXT           "", 4027, 50, 136, 130, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "", 4020, 50, 120, 30, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "", 4024, 60, 88, 30, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "", 4030, 130, 88, 30, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        CTEXT           "", 4025, 10, 0, 170, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        LTEXT           "ID:", 4018, 10, 88, 10, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        LTEXT           "Balance:", 4017, 10, 72, 40, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        LTEXT           "", 4023, 60, 72, 50, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "", 4029, 130, 72, 50, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        PUSHBUTTON      "Do It", 3004, 33, 25, 35, 12
+        PUSHBUTTON      "Clear", 3005, 125, 25, 35, 12
+    END
+END
+
+DLGTEMPLATE 102 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", 102, 0, 0, 196, 173, NOT FS_DLGBORDER | WS_VISIBLE
+            PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CCCCCCL
+    BEGIN
+        LTEXT           "Name:", 4012, 10, 152, 30, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        ENTRYFIELD      "", 2001, 52, 153, 127, 10, NOT ES_AUTOSCROLL | 
+                        ES_MARGIN
+        LTEXT           "Branch:", 4003, 10, 136, 37, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        CONTROL         "", 1000, 50, 104, 50, 44, WC_COMBOBOX, CBS_DROPDOWN | 
+                        WS_TABSTOP | WS_VISIBLE
+        CONTROL         "Checking", 3001, 70, 120, 57, 12, WC_BUTTON, 
+                        BS_3STATE | WS_TABSTOP | WS_VISIBLE
+        CONTROL         "Savings", 3003, 130, 120, 57, 12, WC_BUTTON, 
+                        BS_3STATE | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Init Balance:", 4002, 10, 104, 54, 12, DT_VCENTER | 
+                        NOT WS_GROUP
+        ENTRYFIELD      "", 2000, 72, 105, 47, 10, NOT ES_AUTOSCROLL | 
+                        ES_MARGIN
+        ENTRYFIELD      "", 2002, 132, 105, 47, 10, NOT ES_AUTOSCROLL | 
+                        ES_MARGIN
+        CTEXT           "", 4011, 10, 0, 170, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        LTEXT           "ID:", 4008, 10, 88, 20, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        LTEXT           "", 4009, 70, 88, 40, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "", 4010, 130, 88, 40, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "Customer ID:", 4004, 10, 72, 60, 12, DT_VCENTER | 
+                        NOT WS_GROUP
+        LTEXT           "Customer PIN:", 4006, 10, 56, 60, 12, DT_VCENTER | 
+                        NOT WS_GROUP
+        LTEXT           "", 4005, 80, 72, 40, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        LTEXT           "", 4007, 80, 56, 40, 12, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        PUSHBUTTON      "Do It", 3002, 33, 25, 35, 12
+        PUSHBUTTON      "Clear", 3006, 125, 25, 35, 12
+    END
+END
+
+DLGTEMPLATE 101 LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", 101, 0, 0, 196, 173, NOT FS_DLGBORDER | WS_VISIBLE
+            PRESPARAMS PP_BACKGROUNDCOLOR, 0x00CCCCCCL
+    BEGIN
+        ICON            100, 100, 88, 97, 10, 8
+        CTEXT           "SOMBank ", 4000, 58, 139, 80, 12, DT_VCENTER | NOT 
+                        WS_GROUP
+        CTEXT           "Version 2.0 (May 94)", 4001, 47, 116, 102, 12, 
+                        DT_VCENTER | NOT WS_GROUP
+        CTEXT           "Developed for Redbook GG24-4357", 105, 8, 63, 181, 
+                        8
+        CTEXT           """SOMobjects: A Practical Introduction", 106, 16, 
+                        51, 164, 8, DT_VCENTER
+        CTEXT           "to SOM and DSOM""", 107, 40, 39, 116, 8, DT_VCENTER
+        CTEXT           "(Available Summer 1994)", 108, 31, 25, 135, 8, 
+                        DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FF0000L
+        CTEXT           "Admin Client", 109, 58, 128, 80, 12, DT_VCENTER | 
+                        NOT WS_GROUP
+        CTEXT           "A Distributed SOM  Sample Application", 110, 17, 75, 
+                        163, 8, DT_VCENTER
+    END
+END

@@ -1,0 +1,55 @@
+/* Export Desktop                       */
+/* Parameters: 1. Inifile name          */
+/*             2. Target directory name */
+parse arg window inifile name target
+
+i1 = lastpos('\', inifile)
+ininame = substr(inifile,i1+1)
+'@INI2DESK' inifile '>$$temp$$'
+i2drc = rc
+'@RXQUEUE < $$temp$$'
+'@DEL $$temp$$'
+parse pull line
+call SysFileTree target'\'ininame,'ini','B'
+deltini=''
+if ini.0 > 0
+then do
+     deltini=VpMessageBox(window,'Warning','The .INI file' target'\'ininame 'already exists.'||'0d'x||'Do you want to overwrite?','YESNO')
+     if deltini = 'NO'
+     then return
+     end
+if i2drc = 0
+then do
+     pos1 = pos('\', line)
+     targetsubdir = substr(line, pos1 + 1)
+     call SysFileTree target'\'targetsubdir,'tdir','B'
+     if tdir.0 > 0
+     then do
+          deltdir=VpMessageBox(window,'Warning','A file or directory' target'\'targetsubdir 'already exists.'||'0d'x||'Do you want to overwrite?','YESNO')
+          if deltdir='NO'
+          then return
+          '@DELALL' target'\'targetsubdir'\*.*'
+          end
+     if deltini='YES'
+     then '@DEL' target'\'ininame
+     '@XCOPY' '"'line'"' '"'target'\'targetsubdir'"\ /S /E'
+/*     '@XCOPY' line '"'target'\'targetsubdir'"\ /S /E'*/
+     if rc = 0
+     then do
+          '@DTUPD /Q /I:'inifile '"/C:'target'\'name'.ctl"'
+          end
+     else do
+          response=VpMessageBox(window,'Error','Error while copying' line 'to' target'\'targetsubdir'\')
+          return
+          end
+     end
+'@XCOPY' inifile '"'target'"\'
+if rc = 0
+then do
+     response=VpMessageBox(window,'Info','Desktop successfully exported to' target)
+     end
+else do
+     response=VpMessageBox(window,'Error','Error while copying' inifile 'to' target)
+     return
+     end
+

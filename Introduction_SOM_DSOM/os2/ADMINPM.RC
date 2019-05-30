@@ -1,0 +1,10 @@
+#define INCL_WINSTDSPIN
+#define INCL_WIN
+#include <os2.h>                       /* System Include File      */
+#include "ADMINPM.h"                  /* Application Include File */
+
+ICON   IC_SOM   PRELOAD som.ico
+BITMAP BIT_ITSC PRELOAD itsclogo.bmp
+
+rcinclude ADMINPM.dlg
+

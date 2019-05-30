@@ -1,0 +1,106 @@
+Arg window self
+
+filename = VpFileDialog(window,'OPEN','*.INI','Select an INI file for Import')
+IF LENGTH(filename) <= 0 
+THEN return
+
+copypath=''
+pos1 = lastpos('\', filename)
+path = left(filename,pos1-1)
+file = substr(filename, pos1+1)
+if right(file,4)<>'.INI'
+then do
+     response=VpMessageBox(window,'Error',"You must select a .INI file.")
+     return
+     end
+pos2 = pos('.',file)
+fn = left(file, pos2-1)
+call SysFileTree path'\'fn'.ctl','ctl','OF'
+call SysFileTree drive'\'file,'ini','OF'
+if ini.0 > 0
+then do
+     response=VpMessageBox(window,'Warning','A .INI file' file 'already exists in path' drive||'0d'x||'Do you want to overwrite?','YESNO')
+     if response='NO'
+     then return
+     end
+msg = ''
+if ctl.0 > 0
+then do
+     '@RXQUEUE <' ctl.1
+     i1 = queued()
+     do i2=1 to i1
+        parse pull line
+        if left(line,19)='Object:<WP_DESKTOP>'
+        then do
+             parse var line 24 temp ','
+             '@RXQUEUE /CLEAR'
+             call SysFileTree path'\'temp,'path','OD'
+             if path.0 > 0
+             then copypath=path.1
+             leave
+             end
+     end
+     end
+if copypath <>""
+then do
+     target=left(drive,3)||temp
+     call SysFileTree target,'target','OD'
+     if target.0 > 0
+     then do
+          response=VpMessageBox(window,'Warning','The directory' target 'already exists.'||'0d'x||'Do you want to overwrite?','YESNO')
+          if response='NO'
+          then return
+/*   added '\*.*'   */
+          '@DELALL' target'\*.*'
+          end
+     '@XCOPY "'copypath'" "'target'"\ /S/E' 
+     if rc > 0
+     then do
+          response=VpMessageBox(window,'Error','Error while copying desktop directory from' copypath 'to' target)
+          return
+          end
+     msg = 'Desktop directory structure' copypath 'successfully copied to' target'.'||'0d'x
+     end
+
+'@XCOPY' filename drive'\'
+retc = rc
+if retc = 0
+then do
+     if copypath <> ""
+     then do
+          '@DTUPD /U' ctl.1 '/I:'drive'\'file '/D:'drive '2>&1 | RXQUEUE'
+          parse pull line
+          line='0d'x||line
+          '@RXQUEUE /CLEAR'
+          msg2=filename 'and its associated desktop directory structure'
+          end
+     else do
+          msg2=filename
+          line=''
+          end
+     response=VpMessageBox(window,'Info',msg||'INI file' file 'successfully copied to' drive||line)
+/*     response=VpMessageBox(window,'Delete source','Do you want to delete the files you imported from?'||'0d'x||msg2,'YESNO')
+     if response = 'YES'
+     then do
+          msg=''
+          if copypath <> ''
+          then do
+               '@DELALL' copypath '| RXQUEUE'
+               i1 = queued()
+               do i2 = 1 to i1
+                  parse pull line
+                  if msg <> ''
+                  then msg=msg||'0d'x
+                  msg=msg||line
+               end
+               '@DEL' ctl.1
+               msg=msg'0d'x||ctl.1 'deleted'||'0d'x
+               end         
+          '@DEL' filename
+          msg=msg||filename 'deleted'
+          response=VpMessageBox(window,'Info',msg)
+          end  */
+     if ini.0 = 0
+     then CALL VpAddItem window,1000,'ASCENDING',drive'\'file
+     end
+else response=VpMessageBox(window,'Error',msg||'Error while copying INI file' filename 'to' drive'\OS2')

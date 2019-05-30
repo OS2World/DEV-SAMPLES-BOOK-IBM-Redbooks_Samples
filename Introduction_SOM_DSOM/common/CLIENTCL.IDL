@@ -1,0 +1,168 @@
+/* ******************************************************************** *
+ * Copyright International Business Machines Corporation 1993, 1994     *
+ * DISCLAIMER OF WARRANTIES.                                            *
+ * The following [enclosed] code is sample code created by IBM          *
+ * Corporation. This sample code is not part of any standard or IBM     *
+ * product and is provided to you solely for the purpose of assisting   *
+ * you in the development of your applications.  The code is provided   *
+ * "AS IS". IBM MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT  *
+ * NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS *
+ * FOR A PARTICULAR PURPOSE, REGARDING THE FUNCTION OR PERFORMANCE OF   *
+ * THIS CODE.  IBM shall not be liable for any damages arising out of   *
+ * your use of the sample code, even if they have been advised of the   *
+ * possibility of such damages.                                         *
+ *                                                                      *
+ * DISTRIBUTION.                                                        *
+ * This sample code can be freely distributed, copied, altered, and     *
+ * incorporated into other software, provided that it bears the above   *
+ * Copyright notice and DISCLAIMER intact.                              *
+ * -------------------------------------------------------------------- *
+ * SOMBank Sample Application                                           *
+ *                                                                      *
+ * Documented in:                                                       *
+ *  IBM International Technical Support Organization Bulletin (Redbook) *
+ *  "SOMobjects: A Practical Introduction to SOM and DSOM" (GG24-4357)  *
+ * -------------------------------------------------------------------- *
+ */
+#ifndef CLIENTCLASS_IDL
+#define CLIENTCLASS_IDL
+
+#include <snglicls.idl>  // Def of SOMMSingleInstance Metaclass
+
+interface SOMDServer;
+interface CheckingAccountMetaClass;
+interface SavingsAccountMetaClass;
+interface CheckingAccount;
+interface SavingsAccount;
+interface Customer;
+interface CustomerMetaClass;
+interface ServerBroker;
+interface AccountsManager;
+interface CustomerManager;
+
+interface ClientClass : SOMObject
+{
+    /*------------------------------*/
+    /*       Types and Constants    */
+    /*------------------------------*/
+     struct serverRecord {
+          SOMDServer               server;
+          char                    *alias;
+          char                    *newAlias;
+          AccountsManager          theAccountsManager;
+          SavingsAccountMetaClass  theSavingsAccountClass;
+          CheckingAccountMetaClass theCheckingAccountClass;
+          serverRecord            *next;
+     };
+
+
+    /*-----------------------------*/
+    /*     Attributes              */
+    /*-----------------------------*/
+
+    attribute long   CustomerID;
+    attribute string CustomerName;
+    attribute string CustomerBranchID;
+    attribute long   CheckingAccountID;
+    attribute long   SavingsAccountID;
+
+    /*------------------------------*/
+    /*          Methods          */
+    /*------------------------------*/
+
+    #ifdef __PRIVATE__
+    SOMDServer getBranchServer(in string branchId);
+    void freeServerRecord(in serverRecord *aRecord);
+    void freeBranchServerArray();
+    void freeClient();
+    #endif /* __PRIVATE__ */
+
+    long createSavingsAccount(in double balance);
+    long createCheckingAccount(in double balance);
+    long createCustomer(in  string customerName,
+                         in  string branchID,
+                         out long   customerPIN);
+    long restoreCustomer(in long customerID);
+    long deleteCustomer(in long customerID);
+    long deleteAccount(in long customerID,
+                        in long accountID);
+
+    long deposit (in long   accountID,
+                  in long   accountType,
+                  in double amount);
+    long withdraw (in long   accountID,
+                   in long   accountType,
+                   in double amount);
+    long inquire (in  long   accountID,
+                  in  long   accountType,
+                  out double newBalance);
+    long restoreATMCustomer(in long customerID,
+                             in long customerPIN);
+
+    /*------------------------------*/
+    /*       Implementation         */
+    /*------------------------------*/
+
+    #ifdef __SOMIDL__
+        implementation
+        {
+            dllname="clientcl.dll";
+
+            metaclass=SOMMSingleInstance ;
+
+            releaseorder:
+                         _get_CustomerID,
+                         _set_CustomerID,
+                         _get_CustomerName,
+                         _set_CustomerName,
+                         _get_CustomerBranchID,
+                         _set_CustomerBranchID,
+                         _get_SavingsAccountID,
+                         _set_SavingsAccountID,
+                         _get_CheckingAccountID,
+                         _set_CheckingAccountID,
+                         createSavingsAccount,
+                         createCheckingAccount,
+                         createCustomer,
+                         restoreCustomer,
+                         deleteCustomer,
+                         deleteAccount,
+                         restoreATMCustomer,
+                         deposit,
+                         withdraw,
+                         inquire
+    #ifdef __PRIVATE__
+                                ,
+                                freeServerRecord,
+                                freeBranchServerArray,
+                                getBranchServer,
+                                freeClient
+     #endif /* __PRIVATE__ */
+            ;
+
+            /*------------------------------*/
+            /*      Method Overrides        */
+            /*------------------------------*/
+
+            somInit   : override;
+            somUninit : override;
+
+            /*------------------------------*/
+            /*     Instance Variables */
+            /*------------------------------*/
+
+
+            SavingsAccountMetaClass  theSavingsAccountClass;
+            CheckingAccountMetaClass theCheckingAccountClass;
+            ServerBroker             theSVRBroker;
+            CustomerMetaClass        theCustomerClass;
+            AccountsManager          theAccountsManager;
+            serverRecord            *firstServerRecord;
+            string                   newCentralAlias;
+            Customer                 aCustomer;
+          };
+   #endif /*__SOMIDL__*/
+};
+#endif
+
+

@@ -1,0 +1,130 @@
+/* ******************************************************************** *
+ * Copyright International Business Machines Corporation 1993, 1994     *
+ * DISCLAIMER OF WARRANTIES.                                            *
+ * The following [enclosed] code is sample code created by IBM          *
+ * Corporation. This sample code is not part of any standard or IBM     *
+ * product and is provided to you solely for the purpose of assisting   *
+ * you in the development of your applications.  The code is provided   *
+ * "AS IS". IBM MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT  *
+ * NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS *
+ * FOR A PARTICULAR PURPOSE, REGARDING THE FUNCTION OR PERFORMANCE OF   *
+ * THIS CODE.  IBM shall not be liable for any damages arising out of   *
+ * your use of the sample code, even if they have been advised of the   *
+ * possibility of such damages.                                         *
+ *                                                                      *
+ * DISTRIBUTION.                                                        *
+ * This sample code can be freely distributed, copied, altered, and     *
+ * incorporated into other software, provided that it bears the above   *
+ * Copyright notice and DISCLAIMER intact.                              *
+ * -------------------------------------------------------------------- *
+ * SOMBank Sample Application                                           *
+ *                                                                      *
+ * Documented in:                                                       *
+ *  IBM International Technical Support Organization Bulletin (Redbook) *
+ *  SOMobjects: A Practical Introduction to SOM and DSOM" (GG24-4357)   *
+ * -------------------------------------------------------------------- *
+ *                                                                      *
+ * FILE       : fileutil.idl                                            *
+ *                                                                      *
+ * CLASS NAME : FileUtility                                             *
+ *                                                                      *
+ * DESCRIPTION: FileUtility provides access to binary files             *
+ *              with fixed length records and a long key                *
+ *                                                                      *
+ *              This utility class was written to provide simple        *
+ *              methods to access binary files.  The purpose was to     *
+ *              provide a simple set of services required by our        *
+ *              application.  These services are not optimized for      *
+ *              performance.                                            *
+ *                                                                      *
+ *              Binary files with a long key represented the easiest    *
+ *              way to store the objects of the application in an       *
+ *              SQL fashion on OS/2, AIX and Windows                    *
+ *                                                                      *
+ *              We assumed that most applications would use a SQL       *
+ *              database to store their information, as it will         *
+ *              provide logging, unit of work recovery, concurrency     *
+ *              control, etc...                                         *
+ *                                                                      *
+ *              The use of an object oriented database is possible      *
+ *              as well, as the objects in the application              *
+ *              encapsulate the interface to the files.                 *
+ * ******************************************************************** *
+ */
+
+#ifndef FileUtility_IDL
+#define FileUtility_IDL
+
+#include <somobj.idl>
+#include <sberr.idl>
+
+interface FileUtility : SOMObject
+{
+    /*------------------------------*/
+    /*          Methods             */
+    /*------------------------------*/
+
+    long fileUtilityInsert(in any aRecord) raises(BankErr::EXCP);
+    long fileUtilityUpdate(in any aRecord) raises(BankErr::EXCP);
+    long fileUtilityDelete(in long key) raises(BankErr::EXCP);
+    long fileUtilityRetrieve(in  long key,
+                             out any  aRecord) raises(BankErr::EXCP);
+    long fileUtilitySelect(in string selectFieldName,
+                           in  void *value,
+                           out long count,
+                           out long arrayOfIds[10]) raises(BankErr::EXCP);
+    long fileUtilityOpen(in char     fileName[13],
+                        in TypeCode theRecordTypeCode) raises(BankErr::EXCP);
+    long fileUtilityGiveLastKey();
+
+    #ifdef __PRIVATE__
+
+        long fileUtilityLocate(in long Id );
+        long identifyField (in  string fieldName,
+                            out long   position,
+                            out long   length) raises(BankErr::EXCP);
+    #endif /*__PRIVATE__*/
+
+    /*------------------------------*/
+    /*      Implementation          */
+    /*------------------------------*/
+
+    #ifdef __SOMIDL__
+        implementation
+        {
+            dllname="fileutil.dll";
+
+            releaseorder: fileUtilityInsert,
+                          fileUtilityUpdate,
+                          fileUtilityDelete,
+                          fileUtilityRetrieve,
+                          fileUtilitySelect,
+                          fileUtilityOpen,
+                          fileUtilityGiveLastKey,
+                          #ifdef __PRIVATE__
+                              fileUtilityLocate,
+                              identifyField;
+                          #else
+                              dummy1,
+                              dummy2;
+                          #endif /*__PRIVATE__ */
+
+            /*------------------------------*/
+            /*      Method Overrides        */
+            /*------------------------------*/
+
+            somInit   : override;
+            somUninit : override;
+
+            /*------------------------------*/
+            /*    Instance Variables        */
+            /*------------------------------*/
+
+            TypeCode recordTypeCode;
+            long     sizeOfRecord;
+            FILE     *fp;
+        };
+    #endif /*__SOMIDL__*/
+};
+#endif  /*FileUtility_IDL*/
+

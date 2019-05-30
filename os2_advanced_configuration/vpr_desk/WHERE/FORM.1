@@ -1,0 +1,16 @@
+Arg window 
+
+Func = Topic
+/* Set item value  Text */
+CALL VpSetItemValue window,1000,'Select drive for 'Topic
+CALL VpWindow window,'SETTITLE','Select Drive'
+Drives = Sysdrivemap('A')
+Max = Words(Drives)
+Do I = 1 to Max
+    /* Add item sorted ascending  Combo Box */
+    CALL VpAddItem window,1002,'ASCENDING',Word(Drives,I)
+    End
+/* Select item  Combo Box */
+CALL VpSelect window,1002,1,1
+/* Set item value  Entry Field */
+CALL VpSetItemValue window,1006,'\'

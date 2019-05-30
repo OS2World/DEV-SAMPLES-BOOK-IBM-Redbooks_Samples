@@ -1,0 +1,8 @@
+#define INCL_WINSTDSPIN
+#define INCL_WIN
+#include <os2.h>                       /* System Include File      */
+#include "ATMPM.h"                    /* Application Include File */
+
+ICON ID_MAIN_WINDOW PRELOAD som.ico
+
+rcinclude ATMPM.DLG

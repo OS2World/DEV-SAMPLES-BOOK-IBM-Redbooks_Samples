@@ -1,0 +1,9 @@
+#define INCL_WIN
+#include <os2.h>
+#include "TTFN.h"
+
+BITMAP 1014 PRELOAD ON.BMP
+BITMAP 1015 PRELOAD OFF.BMP
+
+rcinclude TTFN.DLG
+

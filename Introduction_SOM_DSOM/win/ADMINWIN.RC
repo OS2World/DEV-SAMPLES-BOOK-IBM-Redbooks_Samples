@@ -1,0 +1,144 @@
+//Microsoft App Studio generated resource script.
+//
+#include "resrc1.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "adminwin.h"
+#include "resource.h"
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+SOMADMIN MENU DISCARDABLE
+BEGIN
+    POPUP "&Customer"
+    BEGIN
+        MENUITEM "&Customer Administration",    IDM_CUST
+        MENUITEM SEPARATOR
+        MENUITEM "&Exit",                       IDM_EXIT
+        MENUITEM SEPARATOR
+        MENUITEM "&About",                      IDM_ABOUT
+    END
+END
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG1 DIALOG DISCARDABLE  0, 0, 326, 198
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "SOMBank Customer Administration"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "&Search",IDSEARCH,165,10,35,14
+    DEFPUSHBUTTON   "&Close",IDCLOSE,250,10,50,14
+    LTEXT           "Customer Name :",IDC_CUSTOMERNAME,55,65,55,10
+    EDITTEXT        IDC_EDIT1,115,60,91,15,ES_AUTOHSCROLL
+    LTEXT           "Account Type",IDC_ACCOUNTTYPE,55,110,48,8
+    LTEXT           "Balance",IDC_BALANCE,125,110,50,7
+    CONTROL         "Checking",IDC_CHECK1,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,50,130,43,10
+    EDITTEXT        IDC_EDIT2,126,130,46,15,ES_AUTOHSCROLL
+    CONTROL         "Savings",IDC_CHECK2,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,50,170,47,10
+    EDITTEXT        IDC_EDIT3,125,170,47,15,ES_AUTOHSCROLL
+    LTEXT           "Branch",IDC_BRANCH,55,87,46,15
+    PUSHBUTTON      "&Save",IDSAVE,250,60,50,14
+    PUSHBUTTON      "C&reate",IDCREATE,250,110,50,14
+    PUSHBUTTON      "&Delete",IDDELETE,250,135,50,14
+    EDITTEXT        IDC_EDIT_ID,115,10,40,13,ES_AUTOHSCROLL
+    LTEXT           "Customer ID",IDC_CUSTOMERID,55,10,46,11
+    EDITTEXT        IDC_EDIT_PIN,115,30,40,13,ES_AUTOHSCROLL
+    LTEXT           "PIN",IDC_PIN,55,30,33,14
+    COMBOBOX        IDC_COMBOBRANCH,115,85,50,73,CBS_DROPDOWNLIST | CBS_SORT |
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "&View",IDVIEW,250,85,50,14
+    PUSHBUTTON      "C&ancel",IDCANCEL,250,35,50,14
+END
+
+IDD_DIALOG2 DIALOG DISCARDABLE  0, 0, 227, 139
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "SOMBank"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CTEXT           "SOMBank Sample Application",IDC_STATIC,56,4,115,15
+    CTEXT           """SOMobjects: A Practical Introduction to SOM and DSOM""",
+                    IDC_STATIC,3,36,216,8
+    DEFPUSHBUTTON   "&OK",IDOK,88,105,50,14
+    CTEXT           "(GG24-4357)",IDC_STATIC,79,47,69,8
+    CTEXT           "Copyright IBM 1994",IDC_STATIC,68,66,86,8
+    CTEXT           "Written for",IDC_STATIC,77,22,73,8
+END
+
+#ifdef APSTUDIO_INVOKED
+//////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "resrc1.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""somadmin.h""\r\n"
+    "#include ""resource.h""\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE
+BEGIN
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+/////////////////////////////////////////////////////////////////////////////////////
+#endif    // APSTUDIO_INVOKED
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DIALOG1 DLGINIT
+BEGIN
+    1015, 0x403, 1, 0
+"\000"
+    0
+END
+
+
+#ifndef APSTUDIO_INVOKED
+////////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
+

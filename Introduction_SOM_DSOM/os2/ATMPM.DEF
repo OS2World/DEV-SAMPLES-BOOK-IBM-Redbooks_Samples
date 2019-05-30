@@ -1,0 +1,17 @@
+; Module Definition file.
+
+NAME         SOMBANK
+
+DESCRIPTION             'SOMBANK ATMPM'
+PROTMODE
+
+
+STUB                    'OS2STUB.EXE'
+
+HEAPSIZE			10000
+
+
+
+
+
+

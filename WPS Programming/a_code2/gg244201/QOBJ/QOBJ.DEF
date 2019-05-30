@@ -1,0 +1,19 @@
+;******* Query object ********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+
+
+NAME    QOBJ    WINDOWCOMPAT
+
+DESCRIPTION     'Query object'
+
+STUB    'OS2STUB.EXE'
+
+DATA    MULTIPLE
+
+STACKSIZE  16384
+HEAPSIZE   4096
+
+PROTMODE
+

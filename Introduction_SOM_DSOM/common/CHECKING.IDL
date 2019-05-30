@@ -1,0 +1,149 @@
+/* ******************************************************************** *
+ * Copyright International Business Machines Corporation 1993, 1994     *
+ * DISCLAIMER OF WARRANTIES.                                            *
+ * The following [enclosed] code is sample code created by IBM          *
+ * Corporation. This sample code is not part of any standard or IBM     *
+ * product and is provided to you solely for the purpose of assisting   *
+ * you in the development of your applications.  The code is provided   *
+ * "AS IS". IBM MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT  *
+ * NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS *
+ * FOR A PARTICULAR PURPOSE, REGARDING THE FUNCTION OR PERFORMANCE OF   *
+ * THIS CODE.  IBM shall not be liable for any damages arising out of   *
+ * your use of the sample code, even if they have been advised of the   *
+ * possibility of such damages.                                         *
+ *                                                                      *
+ * DISTRIBUTION.                                                        *
+ * This sample code can be freely distributed, copied, altered, and     *
+ * incorporated into other software, provided that it bears the above   *
+ * Copyright notice and DISCLAIMER intact.                              *
+ * -------------------------------------------------------------------- *
+ * SOMBank Sample Application                                           *
+ *                                                                      *
+ * Documented in:                                                       *
+ *  IBM International Technical Support Organization Bulletin (Redbook) *
+ *  "SOMobjects: A Practical Introduction to SOM and DSOM" (GG24-4357)  *
+ * -------------------------------------------------------------------- *
+ *                                                                      *
+ * FILE       : checking.idl                                            *
+ *                                                                      *
+ * CLASS NAMES: CheckingAccount and CeckingAccountMetaClass             *
+ *                                                                      *
+ * DESCRIPTION: The class CheckingAccount is derived from the parent    *
+ *              class Account.  It provides two additional public       *
+ *              methods to set the attributes for fee and minimum       *
+ *              balance. Since checking accounts can be overdrawn, a    *
+ *              method to change the required minimum balance is        *
+ *              provided in the present subclass.  Two additional       *
+ *              private methods are provided to facilitate the          *
+ *              computation of the fees associated with low balances.   *
+ *                                                                      *
+ *              Since we need to define the constructor of the class    *
+ *              CheckingAccount, we also define the meta class of it.   *
+ *              Note that one can not simply override the constructor   *
+ *              provided by the AccountMetaClass (createAccount) from   *
+ *              which CheckingAccountMetaClass is derived, since the    *
+ *              new one needs different arguments (minimum balance and  *
+ *              fee) and in SOM one can not change the signature of a   *
+ *              method by overriding (i.e.  there is no overload        *
+ *              capability).  Therefore we are forced to introduce a    *
+ *              new method (openAccount).                               *
+ *                                                                      *
+ *              See also the comments for the IDL of the class          *
+ *              Account.                                                *
+ * ******************************************************************** *
+ */
+
+#ifndef CheckingAccount_IDL
+#define CheckingAccount_IDL
+
+#include <account.idl>
+
+interface Fee;  // Forward Declaration
+
+interface CheckingAccount; // Forward Declaration
+
+interface CheckingAccountMetaClass : AccountMetaClass
+{
+
+    /*------------------------------*/
+    /*       Implementation         */
+    /*------------------------------*/
+
+    #ifdef __SOMIDL__
+        implementation
+        {
+            dllname      = "account.dll";
+            create       : override;
+            restore      : override;
+        };
+    #endif /*__SOMIDL__*/
+};
+
+interface CheckingAccount : Account
+{
+    /*------------------------------*/
+    /*          Methods             */
+    /*------------------------------*/
+
+    long defineFee(in Fee fee);
+    long defineMinimumBalance(in double minimum);
+    #ifdef __PRIVATE__
+        double computeFee(in double balance);
+        void applyFee();
+    #endif /*__PRIVATE__*/
+
+    /*------------------------------*/
+    /*         Attributes           */
+    /*------------------------------*/
+
+    #ifdef __PRIVATE__
+        attribute Fee fee;
+    #endif /*__PRIVATE__*/
+
+    /*------------------------------*/
+    /*       Implementation         */
+    /*------------------------------*/
+
+    #ifdef __SOMIDL__
+
+        implementation
+        {
+            dllname      = "account.dll";
+
+            metaclass    = CheckingAccountMetaClass;
+
+            releaseorder : defineFee,
+                           defineMinimumBalance,
+                           #ifdef __PRIVATE__
+                               _get_fee,
+                               _set_fee,
+                               computeFee,
+                               applyFee
+                           #else
+                               dummy1,
+                               dummy2,
+                               dummy3,
+                               dummy4
+                           #endif // __PRIVATE__
+                           ;
+
+            passthru C_h = "#include <fee.h>";
+
+            /*------------------------------*/
+            /*      Method Overrides        */
+            /*------------------------------*/
+
+            save         : override;
+            delete       : override;
+            withdrawFrom : override;
+            depositTo    : override;
+            somInit      : override;
+            somUninit    : override;
+            #ifdef __PRIVATE__
+                withdrawalIsValid   : override;
+            #endif /*__PRIVATE__*/
+        };
+    #endif /*__SOMIDL__*/
+};
+#endif /*CheckinAccount_IDL*/
+

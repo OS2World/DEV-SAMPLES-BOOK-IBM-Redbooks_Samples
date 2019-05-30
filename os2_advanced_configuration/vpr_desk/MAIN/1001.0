@@ -1,0 +1,51 @@
+Arg window self
+
+/* Get item value  List Box */
+value = VpGetItemValue(window,1000)
+if value = '' then do
+  response=VpMessageBox(window,'Error','You must first select a .INI file')
+  return
+end
+response=VpMessageBox(window,'Update','Update CONFIG.SYS ?','YESNOCNCL')
+if response = 'CANCEL'
+then return
+if response = 'YES'
+then parm = '/C'
+else parm = ''
+value = subword(value,1,1)
+'@CHGDT' value parm '| RXQUEUE'
+msg = ''
+i1 = Queued()
+do i2=1 to i1
+  parse pull line
+  if msg <> ''
+  then msg=msg||'0d'x
+  msg=msg||line
+  end
+response=VpMessageBox(window,'Switching Desktops',msg)
+
+CALL VpDeleteItem window,1000,'ALL'
+CALL VpSetItemValue window,1004,'Switching Desktops. Please wait...'
+
+do i3=1 to 42
+CALL SYSSLEEP 5
+'@CHGDT | RXQUEUE'
+i1 = Queued()
+do i2=1 to i1
+  parse pull line
+  if i2 = 3 then check = line
+  end
+if substr(check,1,10) = 'The actual' then leave
+end
+ 
+'@FINDINI | RXQUEUE'
+i1 = Queued()
+do i2=1 to i1
+  Pull Line
+/* Add item sorted ascending  List Box */
+  CALL VpAddItem window,1000,'ASCENDING',line
+  end
+CALL VpSetItemValue window,1004,''
+deleteselected = 0 
+
+

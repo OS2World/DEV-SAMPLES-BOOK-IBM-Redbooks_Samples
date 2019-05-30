@@ -1,0 +1,24 @@
+Stack Allocation = 10000 bytes
+
+ FINDINI
+
+ Start         Length     Name                   Class
+ 0001:00000000 000005C8CH CODE32                 CODE 32-bit
+ 0001:00005C8C 000000030H _MSGSEG32              CODE 32-bit
+ 0002:00000000 0000008E0H DATA32                 DATA 32-bit
+ 0002:000008E0 000000000H CTOR_DTOR1             DATA 32-bit
+ 0002:000008E0 000000000H CTOR_DTOR2             DATA 32-bit
+ 0002:000008E0 000000000H CTOR_DTOR3             DATA 32-bit
+ 0002:000008E0 000000130H CONST32                CONST 32-bit
+ 0002:00000A10 00000000CH EDC1                   EDC_CLASS 32-bit
+ 0002:00000A1C 0000002D0H EDC2                   EDC_CLASS 32-bit
+ 0002:00000CEC 000000004H EDC3                   EDC_CLASS 32-bit
+ 0002:00000CF0 000000000H BSS32                  BSS 32-bit
+ 0002:00000CF0 000002DC6H c_common               BSS 32-bit
+ 0002:00003AC0 000002710H STACK32                STACK 32-bit
+
+ Origin   Group
+ 0002:0   DGROUP
+ 0000:0   FLAT
+
+Program entry point at 0001:00000D4C

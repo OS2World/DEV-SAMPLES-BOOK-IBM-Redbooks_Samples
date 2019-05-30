@@ -1,0 +1,17 @@
+; Module Definition file.
+
+NAME         ADMINPM
+
+DESCRIPTION             'ADMINPM'
+PROTMODE
+
+
+STUB                    'OS2STUB.EXE'
+
+HEAPSIZE			10000
+
+
+
+
+
+

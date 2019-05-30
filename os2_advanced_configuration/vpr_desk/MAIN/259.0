@@ -1,0 +1,4 @@
+Arg window self
+
+/* Open the form H:\GG244201\Managing Desktops\Copyrite*/
+value=VpOpenForm(window, 260, 'topic name')

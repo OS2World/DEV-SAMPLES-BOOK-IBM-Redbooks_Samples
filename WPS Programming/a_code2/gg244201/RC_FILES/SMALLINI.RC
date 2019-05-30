@@ -1,0 +1,80 @@
+/* File used by MAKEINI.EXE to update a USER.INI                      */
+/* Use the command                                                    */
+/*    MAKEINI USER.INI SMALLINI.RC                                    */
+/* to update the file NEW.INI.                                        */
+/* To copy over the OS2.INI, use a DOS boot diskette or the           */
+/* OS2 Install diskette ESCed to the command line to compile          */
+/* SMALLINI.INI over the existing OS2.INI.                            */
+/* To use onther USER.INI compile INI.RC to USER.INI and then compile */
+/* SMALLINI.RC over the USER.INI file to update it                    */
+
+CODEPAGE 850
+
+STRINGTABLE
+BEGIN
+
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+
+  "PM_ASSOC_TYPE"      "Spreadsheet"          ""
+  "PM_ASSOC_TYPE"      "Wordprocessor"        ""
+  "PM_ASSOC_TYPE"      "Drawings"             ""
+
+  "PM_DefaultSetup" "MINWIN" "DESKTOP"
+
+
+END
+
+STRINGTABLE REPLACEMODE
+BEGIN
+  "PM_InstallObject" "Small Desktop;WPDesktop;?:\;UPDATE" "OBJECTID=<WP_DESKTOP>"
+
+/* Delete unwanted objects*/
+  "PM_InstallObject" "Minimized^Window Viewer;WPMinWinViewer;<WP_DESKTOP>;DELETE" "OBJECTID=<WP_VIEWER>"
+  "PM_InstallObject" "Shredder;WPShredder;<WP_DESKTOP>;DELETE" "OBJECTID=<WP_SHRED>"
+    "PM_InstallObject" "Glossary;Mindex;<WP_INFO>;UPDATE" "INDEX=GLOSSARY;NODELETE=NO;OBJECTID=<WP_GLOSS>"
+  "PM_InstallObject" "Information;WPFolder;<WP_DESKTOP>;DELETE" "OBJECTID=<WP_INFO>"
+    "PM_InstallObject" "Start Here;WPProgram;<WP_DESKTOP>;DELETE" "EXENAME=STHR.EXE;PROGTYPE=PM;OBJECTID=<WP_STHR>"
+    "PM_InstallObject" "Master Help Index;Mindex;<WP_DESKTOP>;DELETE" "NODELETE=NO;OBJECTID=<WP_MINDEX>"
+    "PM_InstallObject" "Startup;WPStartup;<WP_OS2SYS>;DELETE" "HELPPANEL=8002;NODELETE=NO;OBJECTID=<WP_START>"
+      "PM_InstallObject" "System Clock;WPClock;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_CLOCK>"
+      "PM_InstallObject" "Keyboard;WPKeyboard;<WP_CONFIG>;DELETE" "NODELETE=NO;OBJECTID=<WP_KEYB>"
+      "PM_InstallObject" "Mouse;WPMouse;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_MOUSE>"
+      "PM_InstallObject" ";WPWinConfig;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_WINCFG>"
+      "PM_InstallObject" "Sound;WPSound;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_SOUND>"
+      "PM_InstallObject" "System;WPSystem;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_SYSTEM>"
+      "PM_InstallObject" "Country;WPCountry;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_CNTRY>"
+      "PM_InstallObject" "Font Palette;WPFontPalette;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_FNTPAL>"
+      "PM_InstallObject" "Color Palette;WPColorPalette;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_CLRPAL>"
+      "PM_InstallObject" "Scheme Palette;WPSchemePalette;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_SCHPAL>"
+      "PM_InstallObject" "Spooler;WPSpool;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_SPOOL>"
+      "PM_InstallObject" ";WPPower;<WP_CONFIG>;UPDATE" "NODELETE=NO;OBJECTID=<WP_POWER>"
+    "PM_InstallObject" "Command Prompts;WPFolder;<WP_OS2SYS>;DELETE" "OBJECTID=<WP_PROMPTS>"
+    "PM_InstallObject" "Games;WPFolder;<WP_OS2SYS>;DELETE" "OBJECTID=<WP_GAMES>"
+    "PM_InstallObject" "Productivity;WPFolder;<WP_OS2SYS>;DELETE" "OBJECTID=<WP_TOOLS>"
+
+/* Install the new objects */
+  "PM_InstallObject" "DeScribe;WPProgram;<WP_DESKTOP>" "EXENAME=?:\DESCRIBE\DESCRIBE.EXE;PROGTYPE=PM;NOTVISIBLE=YES;ASSOCTYPE=Wordprocessor,,;ASSOCFILTER=*.DSC,,;OBJECTID=<WP_DESCRIBE>"
+  "PM_InstallObject" "Lotus 1-2-3;WPProgram;<WP_DESKTOP>" "EXENAME=?:\123W\123W.EXE;PROGTYPE=PM;NOTVISIBLE=YES;ASSOCTYPE=Spreadsheet,,;ASSOCFILTER=*.WK?,,;OBJECTID=<WP_LOTUS>"
+  "PM_InstallObject" "FreeLance;WPProgram;<WP_DESKTOP>" "EXENAME=?:\FL\FL.EXE;PROGTYPE=PM;NOTVISIBLE=YES;ASSOCTYPE=Drawing,,;ASSOCFILTER=*.FLW,,;OBJECTID=<WP_FL>"
+  "PM_InstallObject" "Layout;WPFolder;<WP_DESKTOP>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=20 50 60 20;OBJECTID=<WP_LAYOUT>"
+    "PM_InstallObject" "Document.DSC;WPDataFile;<WP_LAYOUT>" "TEMPLATE=YES;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Wordprocessor,,;OBJECTID=<WP_TEMPWORD>"
+    "PM_InstallObject" "Sheet.WK3;WPDataFile;<WP_LAYOUT>" "TEMPLATE=YES;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Spreadsheet,,;OBJECTID=<WP_TEMPSHEET>"
+    "PM_InstallObject" "Drawing.FLW;WPDataFile;<WP_LAYOUT>" "TEMPLATE=YES;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Drawing,,;OBJECTID=<WP_TEMPDRAW>"
+  "PM_InstallObject" "Word Processing;WPFolder;<WP_DESKTOP>" "ICONVIEW=FLOWED;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=33 30 30 50;OBJECTID=<WP_WORDFOLDER>"
+    "PM_InstallObject" "Document.DSC;WPDataFile;<WP_WORDFOLDER>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Wordprocessor,,;OBJECTID=<WP_WORDFILE>"
+  "PM_InstallObject" "Spreadsheets;WPFolder;<WP_DESKTOP>" "ICONVIEW=FLOWED;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=1 30 30 50;OBJECTID=<WP_SHEETFOLDER>"
+    "PM_InstallObject" "Sheet.WK3;WPDataFile;<WP_SHEETFOLDER>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Spreadsheet,,;OBJECTID=<WP_SHEETFILE>"
+  "PM_InstallObject" "Drawings;WPFolder;<WP_DESKTOP>" "ICONVIEW=FLOWED;NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;NORENAME=YES;ICONVIEWPOS=66 30 30 50;OBJECTID=<WP_DRAWFOLDER>"
+    "PM_InstallObject" "Drawing.FLW;WPDataFile;<WP_DRAWFOLDER>" "NODELETE=YES;NOCOPY=YES;NOMOVE=YES;NODRAG=YES;NOLINK=YES;NOSHADOW=YES;ASSOCTYPE=Drawing,,;OBJECTID=<WP_DRAWFILE>"
+
+END
+

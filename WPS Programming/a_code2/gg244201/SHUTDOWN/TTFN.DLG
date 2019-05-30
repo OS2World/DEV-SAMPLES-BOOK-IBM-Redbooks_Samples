@@ -1,0 +1,17 @@
+DLGTEMPLATE ID_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+     DIALOG  "Alternative System Shut Down",ID_DLG,62,14,209,108,
+        WS_VISIBLE,
+        FCF_DLGBORDER | FCF_TITLEBAR
+
+    BEGIN
+        DEFPUSHBUTTON   "~Cancel", PB_CN, 24, 56, 59, 21, WS_GROUP
+        PUSHBUTTON      "~DO IT", PB_OK, 122, 54, 59, 22, NOT
+                        WS_TABSTOP
+        CTEXT           "Do you realy wish to shut down this system ?", 101,
+                        2, 84, 203, 14, DT_VCENTER | NOT WS_GROUP
+        CTEXT           "ITSO Boca Raton -1994- Tim Sennitt", 102, 2, 10,
+                        204, 18, DT_VCENTER | NOT WS_GROUP
+    END
+END
+

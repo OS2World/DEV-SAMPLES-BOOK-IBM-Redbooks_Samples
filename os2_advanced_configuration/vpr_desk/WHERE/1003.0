@@ -1,0 +1,18 @@
+Arg window self
+
+/* Get item value  Combo Box */
+value1 = VpGetItemValue(window,1002)
+/* Get item value  Entry Field */
+value2 = VpGetItemValue(window,1006)
+value=value1||value2
+if right(value,1) = '\'
+then value=left(value, length(value)-1)
+pos1 = lastpos('\', filename)
+if pos1 > 0
+then name = substr(filename, pos1+1)
+else name = filename
+pos1 = pos('.', name)
+if pos1 > 0
+then name = left(name, pos1 - 1)
+call export window filename name value
+CALL VpWindow window,'CLOSE'

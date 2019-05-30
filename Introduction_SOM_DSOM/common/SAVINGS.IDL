@@ -1,0 +1,125 @@
+/* ******************************************************************** *
+ * Copyright International Business Machines Corporation 1993, 1994     *
+ * DISCLAIMER OF WARRANTIES.                                            *
+ * The following [enclosed] code is sample code created by IBM          *
+ * Corporation. This sample code is not part of any standard or IBM     *
+ * product and is provided to you solely for the purpose of assisting   *
+ * you in the development of your applications.  The code is provided   *
+ * "AS IS". IBM MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT  *
+ * NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS *
+ * FOR A PARTICULAR PURPOSE, REGARDING THE FUNCTION OR PERFORMANCE OF   *
+ * THIS CODE.  IBM shall not be liable for any damages arising out of   *
+ * your use of the sample code, even if they have been advised of the   *
+ * possibility of such damages.                                         *
+ *                                                                      *
+ * DISTRIBUTION.                                                        *
+ * This sample code can be freely distributed, copied, altered, and     *
+ * incorporated into other software, provided that it bears the above   *
+ * Copyright notice and DISCLAIMER intact.                              *
+ * -------------------------------------------------------------------- *
+ * SOMBank Sample Application                                           *
+ *                                                                      *
+ * Documented in:                                                       *
+ *  IBM International Technical Support Organization Bulletin (Redbook) *
+ *  "SOMobjects: A Practical Introduction to SOM and DSOM" (GG24-4357)  *
+ * -------------------------------------------------------------------- *
+ *                                                                      *
+ * FILE       : savings.idl                                             *
+ *                                                                      *
+ * CLASS NAME : SavingsAccount and SavingsAccountMetaClass              *
+ *                                                                      *
+ * DESCRIPTION: The class SavingsAccount is derived from the parent     *
+ *              class Account.  It provides one additional public       *
+ *              method to set the private instance variable (an         *
+ *              attribute actually) interestRate.  Two additional       *
+ *              private methods are provided to facilitate the          *
+ *              implementation of the public method                     *
+ *              defineInterestRate().                                   *
+ * ******************************************************************** *
+ */
+
+#ifndef SavingsAccount_IDL
+#define SavingsAccount_IDL
+
+#include <account.idl>
+
+interface SavingsAccount;  // Forward declaration
+
+interface SavingsAccountMetaClass : AccountMetaClass
+{
+
+    /*------------------------------*/
+    /*       Implementation         */
+    /*------------------------------*/
+
+    #ifdef __SOMIDL__
+        implementation {
+
+            dllname      = "account.dll";
+            create       : override;
+            restore      : override;
+        };
+    #endif /* __SOMIDL__ */
+};
+
+interface SavingsAccount : Account
+{
+    /*------------------------------*/
+    /*          Methods             */
+    /*------------------------------*/
+
+    long defineInterestRate(in double rate);
+    void applyInterest();
+    #ifdef __PRIVATE__
+        double computeInterest();
+    #endif
+
+    /*------------------------------*/
+    /*         Attributes           */
+    /*------------------------------*/
+
+    #ifdef __PRIVATE__
+        attribute double interestRate;
+    #endif
+
+
+    /*-------------------------------*/
+    /*       Implementation          */
+    /*-------------------------------*/
+
+    #ifdef __SOMIDL__
+        implementation
+        {
+            dllname      = "account.dll";
+
+            metaclass    = SavingsAccountMetaClass;
+
+            releaseorder : defineInterestRate,
+                           applyInterest,
+                           #ifdef __PRIVATE__
+                               _get_interestRate,
+                               _set_interestRate,
+                               computeInterest
+                           #else
+                               dummy1,
+                               dummy2,
+                               dummy3
+                           #endif
+                           ;
+
+            /*------------------------------*/
+            /*      Method Overrides        */
+            /*------------------------------*/
+
+            save         : override;
+            delete       : override;
+            withdrawFrom : override;
+            depositTo    : override;
+            #ifdef __PRIVATE__
+                withdrawalIsValid   : override;
+            #endif
+        };
+    #endif /*__SOMIDL__*/
+};
+#endif /*SavingsAccount_IDL*/
+

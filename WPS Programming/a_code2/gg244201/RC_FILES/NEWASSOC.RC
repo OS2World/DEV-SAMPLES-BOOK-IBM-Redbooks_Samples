@@ -1,0 +1,33 @@
+/* File used by MAKEINI.EXE to update a USER.INI                      */
+/* Use the command                                                    */
+/*    MAKEINI USER.INI SMALLINI.RC                                    */
+/* to update the file NEW.INI.                                        */
+/* To copy over the OS2.INI, use a DOS boot diskette or the           */
+/* OS2 Install diskette ESCed to the command line to compile          */
+/* SMALLINI.INI over the existing OS2.INI.                            */
+/* To use onther USER.INI compile INI.RC to USER.INI and then compile */
+/* SMALLINI.RC over the USER.INI file to update it                    */
+
+CODEPAGE 850
+
+STRINGTABLE
+BEGIN
+
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+
+  "PM_ASSOC_TYPE"      "Mary-Ann"             ""
+  "PM_ASSOC_TYPE"      "Jody"                 ""
+
+END
+
+CODEPAGE 850
+

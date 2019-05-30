@@ -1,0 +1,38 @@
+/* File used by MAKEINI.EXE to update a USER.INI                      */
+/* Use the command                                                    */
+/*    MAKEINI USER.INI SMALLINI.RC                                    */
+/* to update the file NEW.INI.                                        */
+/* To copy over the OS2.INI, use a DOS boot diskette or the           */
+/* OS2 Install diskette ESCed to the command line to compile          */
+/* SMALLINI.INI over the existing OS2.INI.                            */
+/* To use onther USER.INI compile INI.RC to USER.INI and then compile */
+/* SMALLINI.RC over the USER.INI file to update it                    */
+
+CODEPAGE 850
+
+STRINGTABLE REPLACEMODE
+BEGIN
+
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+
+"PM_National"  "iCountry"  "031" /* Country code (country phone ID)   */
+"PM_National"  "iDate"     "1"   /* Date mode (0:MDY, 1:DMY, 2:YMD)   */
+"PM_National"  "iTime"     "1"   /* time mode (0=12 hours clock, 1=24)*/
+"PM_National"  "sCurrency" "Ÿ"       /* Currency Symbol string */
+"PM_National"  "sDate"     "/"              /* Date separator string  */
+"PM_National"  "iMeasurement"  "2"          /* 1=English, 2=Metric,
+                                               3=Points, 4=Pica       */
+
+END
+
+CODEPAGE 850
+

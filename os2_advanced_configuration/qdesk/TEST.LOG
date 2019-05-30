@@ -1,0 +1,7 @@
+WinInitialize ok.
+WinGetLastError from function WinCreateMsgQueue = 81051
+DosAllocSharedMem, rc = 183
+DosGetNamedSharedMem, rc = 0
+WinCreateObject ok.
+WinDestroyObject ok.
+DosFreeMem, rc = 0

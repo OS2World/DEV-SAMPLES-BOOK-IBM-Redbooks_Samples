@@ -1,0 +1,19 @@
+;******* Query associated desktop directory structure from ini file ********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+
+
+NAME    INI2DESK WINDOWCOMPAT
+
+DESCRIPTION     'Query associated desktop directory structure from ini file'
+
+STUB    'OS2STUB.EXE'
+
+DATA    MULTIPLE
+
+STACKSIZE  16384
+HEAPSIZE   4096
+
+PROTMODE
+

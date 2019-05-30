@@ -1,0 +1,11 @@
+Arg window message
+
+CALL VpDeleteItem window,1000,'ALL'
+'@FINDINI | RXQUEUE'
+Do Queued()
+  Pull Line
+/* Add item sorted ascending  List Box */
+  CALL VpAddItem window,1000,'ASCENDING',line
+end
+
+CALL VpSetItemValue window,1004,''

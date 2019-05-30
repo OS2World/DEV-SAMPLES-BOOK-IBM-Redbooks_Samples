@@ -1,0 +1,18 @@
+Arg window
+CALL VpWindow window,'DISABLESTDIO'
+CALL VpWindow window,'SETTITLE',"Managing Desktops"
+
+'@DLLINST'
+Call RxFuncadd 'SysLoadFuncs', 'RexxUtil', 'SysLoadFuncs'
+Call SysLoadFuncs
+
+drive = FileSpec('Drive', Value('SYSTEM_INI',,'OS2ENVIRONMENT'))||'\OS2' 
+fname =drive||'\*.ini'
+
+'@FINDINI | RXQUEUE'
+Do Queued()
+  Pull Line
+/* Add item sorted ascending  List Box */
+  CALL VpAddItem window,1000,'ASCENDING',line
+end
+deleteselected = 0

@@ -1,0 +1,782 @@
+ * ******************************************************************** *
+ * Copyright International Business Machines Corporation 1993, 1994     *
+ * DISCLAIMER OF WARRANTIES.                                            *
+ * The following [enclosed] code is sample code created by IBM          *
+ * Corporation. This sample code is not part of any standard or IBM     *
+ * product and is provided to you solely for the purpose of assisting   *
+ * you in the development of your applications.  The code is provided   *
+ * "AS IS". IBM MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT  *
+ * NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS *
+ * FOR A PARTICULAR PURPOSE, REGARDING THE FUNCTION OR PERFORMANCE OF   *
+ * THIS CODE.  IBM shall not be liable for any damages arising out of   *
+ * your use of the sample code, even if they have been advised of the   *
+ * possibility of such damages.                                         *
+ *                                                                      *
+ * DISTRIBUTION.                                                        *
+ * This sample code can be freely distributed, copied, altered, and     *
+ * incorporated into other software, provided that it bears the above   *
+ * Copyright notice and DISCLAIMER intact.                              *
+ * -------------------------------------------------------------------- *
+ * SOMBank Sample Application                                           *
+ *                                                                      *
+ * Documented in:                                                       *
+ *  IBM International Technical Support Organization Bulletin (Redbook) *
+ *  "SOMobjects: A Practical Introduction to SOM and DSOM" (GG24-4357)  *
+ * -------------------------------------------------------------------- *
+
+  The files included on this diskette are all covered by the statements
+  directly above.
+
+
+INSTALLING, BUILDING AND EXECUTING SOMBANK
+
+        The SOMBank sample application described in this
+        document is shipped on a diskette which is
+        provided with this document.  This appendix will
+        describe how to install, build, configure and run
+        the SOMBank application on OS/2, AIX and Windows
+        systems.
+       
+        All of the required source and the executables are
+        included on the diskette.  Therefore, the
+        application may be executed without having to
+        build it first.  Makefiles are included which will
+        allow you to rebuild the executables from the
+        source if so desired.
+       
+        旼컴 Important 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+        |                                                |
+        | This application has only been tested on       |
+        | Corrective Service level 2.03 of SOM.  Limited |
+        | testing with CSD 2.04 on OS/2 has also been    |
+        | completed. Some functions have been            |
+        | implemented which require at least CSD 2.03 in |
+        | an OS/2 environment.  This application may     |
+        | fail on prior CSD levels.                      |
+        |                                                |
+        | The general availability version of SOMobjects |
+        | for Windows for all practical purposes should  |
+        | be considered the same as CSD level 2.03 on    |
+        | the OS/2 and AIX.                              |
+        |                                                |
+        읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
+
+    SOMBANK FILES
+
+        The diskette included with this document includes
+        the following:
+
+        -   Binary Class Libraries  (DLL's for all three
+            platforms)
+
+        -   Binary Client Programs  (EXE's for all three
+            platforms)
+
+        -   IDL files for all SOMBank classes (Common for
+            all platforms)
+
+        -   C source code for all SOMBank classes  (Common
+            for all platforms)
+ 
+        -   C source code for all SOMBank client programs
+           -   A GUI ADMIN and ATM client for Windows
+           -   A PM-based GUI ADMIN and ATM client for
+               OS/2
+           -   A text-based ADMIN and ATM client for OS/2
+               and AIX
+
+        -   Makefiles
+           -   "'makefile.os2'" assumes C Set ++
+           -   "'makefile.win'" assumes Microsoft Visual C++
+           -   "'makefile'" for AIX, assumes xlC
+
+        -   Various required header and resource files
+            specific to each platform
+
+        -   A "'mergedef.exe'" utility used by the
+            makefile on OS/2 and Windows.  (This utility
+            is not required or used on AIX.)
+      
+        -   Script files to assist with adding required
+            DSOM server definitions to the Implementation
+            Repository.
+           -   "bankreg.cmd" for OS/2
+           -   "bankreg.bat" for Windows
+           -   "bankreg" for AIX
+      
+        The files listed above will be found on the
+        diskette in the following directories:
+
+        \COMMON   - All IDL, class implementation source files and
+                    common header files for OS/2 and Windows.
+                    These are included in an OS/2 PACKed file called
+                    'c_idl.pak'.
+
+        \OS2      - OS/2 executables, 'makefile.os2' and OS/2 client
+                    source files in a file called 'bankos2.pak'.
+                    A utility used by the OS/2 makefile for merging
+                    multiple .DEF files when multiple classes will
+                    be included in a single DLL. ('mergedef.exe')
+
+        \AIX      - AIX Executables, 'makefile', AIX client source.
+                    Packaged as a compressed tar file.  This is
+                    the only file required to build/run SOMBank on
+                    an AIX system.  This file is called 'bankaix.trz'
+                    on the diskette, but should be copied to an AIX system
+                    as 'bankaix.tar.Z'.
+
+        \WIN      - Windows executables, 'makefile.win' and Windows
+                    client source files in a file called 'bankwin.pak'.
+                    A utility used by the Windows makefile for merging
+                    multiple .DEF files when multiple classes will
+                    be included in a single DLL. ('mergedef.exe') This
+                    executable is identically named and functionally
+                    equivalent to the OS/2 version.
+ 
+    INSTALLATION
+
+                    Before going through the following sections,
+                    please familiarize yourself with the DSOM
+                    configuration requirements as discussed in
+                    the redbook and Chapter 6 of the
+                    SOMobjects Developer Toolkit Users Guide.
+
+        SOMBANK INSTALLATION ON OS/2
+
+                    The following instructions assume that the entire
+                    SOMBank application will execute on a single OS/2
+                    workstation.  "Installing SOMBank for Cross
+                    System Execution"  will discuss what must
+                    change if this assumption is not correct.
+ 
+                    1.  From the diskette, copy the contents of the
+                       "\COMMON" and "\OS2" subdirectories to an
+                       appropriate directory on your system.
+                       Assuming you will use the directory
+                       "c:\sombank" for this application and that you
+                       currently have a directory called "c:\tools"
+                       that is specified in your PATH environment,
+                       execute the following commands.
+         
+                              copy a:\common\c_idl.pak c:\sombank
+                              copy a:\os2\bankos2.pak c:\sombank
+                              copy a:\os2\mergedef.exe c:\tools
+                              cd c:\sombank
+                              unpack bankos2.pak
+                              unpack c_idl.pak
+
+                   2.  Add the SOMBank class interface definitions to
+                       the Interface Repository:
+
+                       a.  Ensure the SOMIR environment variable is
+                           set appropriately, for example:
+
+                              set SOMIR=C:\SOM\ETC\SOM.IR;C:\SOMBANK\SOM.IR
+
+                       b.  Execute the command
+
+                                 sc -sir -u *.idl
+
+                   3.  Add the appropriate DSOM server definitions to
+                       the Implementation Repository:
+
+                       a.  Ensure the SOMDDIR environment variable is
+                           set appropriately.  If using workgroup
+                           DSOM, this should be set to a directory on
+                           a shared file system.
+
+                       b.  By default, the "bankreg" command will
+                           register all servers as being located on
+                           the local host.  Modify the contents of
+                           this file if one or more servers will be
+                           located on other systems.  Instructions
+                           for modifying this file are included
+                           within the file itself.  Execute the
+                           "bankreg" command.
+
+                   4.  Check that all appropriate environment
+                       variables are set as discussed in the documentation.
+                       These include:
+
+                       -   HOSTNAME
+                       -   USER
+                       -   SOMDDIR
+                       -   SOMIR
+
+                   You may use the SOM toolkit supplied "irdump" and
+                   "regimpl" utilities to ensure that the SOMBank
+                   information has been added to the Interface
+                   Repository and Implementation Repository.  You are
+                   now ready to execute SOMBank as described in
+                   "Executing SOMBank".
+
+        SOMBANK INSTALLATION ON AIX
+
+                   The following instructions assume that the entire
+                   SOMBank application will execute on a single AIX
+                   workstation.  "Installing SOMBank for Cross
+                   System Execution"  will discuss what must
+                   change if this assumption is not correct.
+
+                   1.  From the diskette, copy the contents of the
+                       "\AIX" subdirectory to an appropriate
+                       directory on your system.  The following
+                       examples will assume the directory is
+                       "/sombank".
+
+                   2.  Rename the "'BANKAIX.TRZ'" file to
+                       "'bankaix.tar.Z'".  For example, use the
+                       command:
+
+                            mv BANKAIX.TRZ bankaix.tar.Z
+
+                   3.  Uncompress this file by executing the
+                       following command:
+
+                              uncompress bankaix.tar.Z
+
+                   4.  Use the "tar" command to restore the original
+                       files by executing the command:
+                 
+                              tar -xvf bankaix.tar
+                 
+                   5.  Add the SOMBank class interface definitions to
+                       the Interface Repository:
+                 
+                       a.  Ensure the SOMIR environment variable is
+                           set appropriately. For example:
+                 
+                               export SOMIR=/usr/lpp/som/etc/som.ir:/sombank/som.ir
+                 
+                       b.  Execute the command
+                 
+                                 sc -sir -u *.idl
+                 
+                   6.  Add the appropriate DSOM server definitions to
+                       the Implementation Repository:
+                 
+                       a.  Ensure the SOMDDIR environment variable is
+                           set appropriately.  If using workgroup
+                           DSOM, this should be set to a directory on
+                           a shared file system.
+                 
+                       b.  By default, the "bankreg" command will
+                           specify that all servers will be located
+                           on the local host.  Modify the contents of
+                           this file if one or more servers will be
+                           located on other systems.  Execute the
+                           "bankreg" command.
+                 
+                   7.  Check that all appropriate environment
+                       variables are set as discussed in the documentation.
+                 
+                       -   HOSTNAME
+                       -   USER
+                       -   SOMDDIR
+                       -   SOMIR
+                 
+                   You may use the SOM toolkit supplied "irdump" and
+                   "regimpl" utilities to ensure that the SOMBank
+                   information has been added to the Interface
+                   Repository and Implementation Repository.  You are
+                   now ready to execute SOMBank as described in 
+                   "Executing SOMBank".
+
+        SOMBANK INSTALLATION ON WINDOWS
+
+                   The following instructions assume that the entire
+                   SOMBank application will execute on a single
+                   Windows workstation.  "Installing SOMBank
+                   for Cross System Execution" will discuss
+                   what must change if this assumption is not
+                   correct.
+
+                   旼컴 Note 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴커
+                   |                                                |
+                   | The files required for the Windows version of  |
+                   | SOMBank were PACKed using the OS/2 PACK        |
+                   | command.  Therefore, the files must be         |
+                   | UNPACKed on an OS/2 system before copying them |
+                   | to a Windows system.                           |
+                   |                                                |
+                   읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
+
+                   From the diskette, copy the contents of the
+                   "\COMMON" and "\WIN" subdirectories to an
+                   appropriate directory on an OS/2 system.  Assuming
+                   you will use the directory "c:\temp" for this
+                   step,execute the following commands:
+
+                         copy a:\common\c_idl.pak c:\sombank
+                         copy a:\win\bankwin.pak c:\temp
+                         copy a:\win\mergedef.exe c:\temp
+                         cd c:\temp
+                         unpack bankwin.pak
+                         unpack c_idl.pak
+
+                   Copy the contents of the "\temp" subdirectory to
+                   your Windows system.  The 'mergedef.exe' utility
+                   should be copied to a separate directory where you
+                   normally place useful utilities such as a "\tools"
+                   directory.  This directory should be specified in
+                   your PATH  environment.
+
+                   The following steps are most easily accomplished
+                   from a normal DOS prompt.  Windows does not need
+                   to be active for the following installation steps
+                   unless otherwise specified.  For the purposes of
+                   an example commands, we will assume the directory
+                   where you have copied the SOMBank files is
+                   "C:\SOMBANK".
+
+                   1.  Add the SOMBank class interface definitions to
+                       the Interface Repository:
+
+                       a.  Ensure the SOMIR environment variable is
+                           set appropriately, for example:
+
+                              set SOMIR=C:\SOM\ETC\SOM.IR;C:\SOMBANK\SOM.IR
+
+                       b.  From the "\SOMBANK" directory execute the
+                           following command:
+
+                                 somc -sir -u *.idl
+
+                   2.  Add the appropriate DSOM server definitions to
+                       the Implementation Repository:
+
+                       a.  Ensure the SOMDDIR environment variable is
+                           set appropriately.  If using workgroup
+                           DSOM, this should be set to a directory on
+                           a shared file system.
+
+                       b.  By default, the "bankreg" command will
+                           register all servers as being located on
+                           the local host.  Modify the contents of
+                           this file if one or more servers will be
+                           located on other systems.  Instructions
+                           for modifying this file are included
+                           within the file itself.  Execute the
+                           "bankreg" command.
+
+                   3.  Check that all appropriate environment
+                       variables are set as discussed in -- Heading
+                       'DSOMCL' unknown --.  These include:
+
+                       -   HOSTNAME
+                       -   USER
+                       -   SOMDDIR
+                       -   SOMIR
+
+                   4.  At this point, start Windows if it is not
+                       already active.  Create a new program group
+                       called SOMBank.
+
+                   5.  From the SOMobjects Toolkit group, copy the
+                       ICON representing the DSOM Daemon into the
+                       SOMBank group.  Modify the working directory
+                       property of the DSOM Daemon to specify
+
+
+                      "C:\SOMBANK". The working directory will be
+                       the location where the SOMBank database files
+                       will be created.
+
+                       The working directory will also be the
+                       location searched for part of the Interface
+                       Repository if an explicit path is not
+                       specified in the SOMIR environment variable.
+
+                   6.  Create two new program items in the SOMBank
+                       group for starting the ADMINWIN.EXE and
+                       ATMWIN.EXE client programs.  Ensure the
+                       directory information is properly filled in.
+                   
+                   7.  You may also find it useful to copy the
+                       SOMEND, REGIMPL and IRDUMP icons from the
+                       SOMobjects Toolkit group to the SOMBank group.
+                       Now you will be able to access all SOM
+                       utilities and the SOMBank application icons
+                       from within the SOMBank group window.
+
+                  You may use SOM toolkit supplied "IRDUMP" and
+                  "REGIMPL" utilities to ensure that the SOMBank
+                  information has been added to the Interface
+                  Repository and Implementation Repository.  You are
+                  now ready to execute SOMBank as described in 
+                  "Executing SOMBank".
+
+        INSTALLING SOMBANK FOR CROSS SYSTEM EXECUTION
+
+                  When running SOMBank in a workgroup DSOM
+                  environment with components running on different
+                  systems, the steps indicated above should be
+                  followed for each system where a component of
+                  SOMBank will execute.
+
+                  -   Ensure that the DSOM workgroup enabler is
+                      installed on all systems that will participate
+                      and that all systems will be using the same
+                      communications protocol.
+
+                  -   If a shared file system will be used for the
+                      Interface Repository, then ensure the SOMIR
+                      environment variable is set on the various
+                      systems to point at the shared directory and
+                      file.  Otherwise, the Interface Repository
+                      should be populated on each system as
+                      discussed in the previous installation
+                      instructions.
+
+                  -   For SOMBank, the Implementation Repository
+                      must be on a shared file system.  Ensure the
+                      SOMDDIR environment variable is set
+                      appropriately on the various systems involved.
+                      You will only need to execute "bankreg" from
+                      one system.  However, before executing
+                      "bankreg", you must manually modify the
+                      "bankreg" command (script) file to be used by
+                      adding the host names of the various server
+                      machines.  This requires adding a parameter to
+                      each "regimpl"  statement in the "bankreg"
+                      command file to specify the host name of the
+                      target host.  An example of this modification
+                      is included in the various "bankreg" files.
+
+                      Though not detailed here, the systems must be
+                      configured to resolve the host names.  This is
+                      normally done through a "HOSTS" file.  Please
+                      refer to the SOMobjects Workgroup Enabler
+                      Installation/Configuration Guide to ensure all
+                      necessary steps have been taken.
+
+                  -   Execute the "bankreg" command.
+
+
+                  -   Ensure the appropriate transport protocol
+                      stack is installed and that the SOMSOCKETS
+                      environment variable is set to indicate the
+                      protocol stack to be used.  This environment
+                      variable is typically set to one of:
+
+                           TCPIPSockets
+                           NBSockets
+                           IPXSockets
+
+    EXECUTING SOMBANK
+
+                  Ensure all of the installation steps described
+                  above have been properly completed.  You may want
+                  to utilize the "irdump" and "regimpl" commands to
+                  verify that Interface Repository and the
+                  Implementation Repository have been successfully
+                  populated and are accessible from each system.
+
+                  Start "somdd" on each system where a server
+                  process will exist.  You will normally want to
+                  ensure that "somdd" is started from the same
+                  subdirectory where the SOMBank files are located.
+
+                  When the clients described below are started, the
+                  ServerBroker server, a Central server and the
+                  CentralDBServer server processes will be
+                  automatically initialized.  It may take sometime
+                  for these server processes to completely
+                  initialize, which will result in a noticeable
+                  delay to the user.  Once a branch server is
+                  required by the client, two additional servers
+                  will be started ( a Bxxx server and the
+                  BxxxDBserver).  Again, there may be a noticeable
+                  delay at the client while these servers are
+                  started.  Once the servers are started, subsequent
+                  transactions should be much faster.  For each
+                  concurrent client that is started, a new Central
+                  and Bxxx server will be started.  In addition, if
+                  a single client needs access to account data
+                  stored in a second branch, a new Branch DB Server
+                  will also be started.
+
+                  Recall, that savings accounts will earn interest
+                  (at the rate of 5% compounded such that one minute
+                  is equivalent to one day).  Also, checking
+                  accounts will be charged a 20 cent transaction fee
+                  for each transaction when the balance drops below
+                  $500.
+
+        EXECUTING OS/2 CLIENTS
+
+                  There are two versions of each of the clients on
+                  OS/2.  "'ADMIN.EXE'" is a text-based
+                  administrative client for adding customers and
+                  account information to the database.
+                  "'ADMINPM.EXE'" is a PM version of the client.
+                  Likewise, the ATM function is provided by
+                  "'ATM.EXE'" and "'ATMPM.EXE'".
+
+                  After installation, there are no customers in the
+                  database.  Therefore, the administrative client
+                  should be used first to add customers to the
+                  database.  When a customer is added, its ID and
+                  other information will be presented to the user.
+                  The customer ID should be remembered for future
+                  access to this customers accounts.  (The ID's are
+                  four digit values starting with 0001 and are
+                  sequentially allocated.  In our simplified
+                  environment, the PIN will be identical to the ID).
+
+                  In the PM version, the administrator may select
+                  the branch associated with each customer.  With
+                  the text-based version, the "'ADMIN.EXE'" program
+                  may be started with a parameter signifying the
+                  branch that will be used for all account activity
+                  for the duration of the clients execution.  The
+                  default branch ID is B001.  If an administrator
+                  using the text-based client wishes to add accounts
+                  to branch B002, then the following command would
+                  be used to start the "ADMIN" client:
+
+                        admin B002
+
+                  Once accounts have been added to the database, the
+                  ATM clients may be started to provide customer
+                  access to the accounts for inquiry, withdrawal and
+                  deposits.  By exiting the administrative client
+                  before starting the ATM, new server processes will
+                  not need to be created.  The ServerBroker will
+                  re-assign the already created server processes
+                  that have been freed by the administrative client
+                  to the ATM client.
+
+        EXECUTING AIX CLIENTS
+
+                  The two text-based clients for AIX are called
+                  "admin.exe" and "atm.exe"
+
+                  It is recommended to start the client programs
+                  from a different session then that used to start
+                  "somdd".  Otherwise, various status and error
+                  messages generated by the classes in the server
+                  will appear in the same session as the client
+                  output.  Even during normal operation, some
+                  exceptions and error messages are generated.
+                  Having these appear in the client session will
+                  cause confusion for the user.
+
+                  After installation, there are no customers in the
+                  database.  Therefore, the administrative client
+                  should be used first to add customers to the
+                  database.  When a customer is added, its ID and
+                  other information will be presented to the user.
+                  The customer ID should be remembered for future
+                  access to this customers accounts.  (The ID's are
+                  four digit values starting with 0001 and are
+                  sequentially allocated.  In our simplified
+                  environment, the PIN will be identical to the ID).
+
+                  The "admin.exe" program may be started with a
+                  parameter signifying the branch that will be used
+                  for all account activity for the duration of the
+                  client's execution.  The default branch ID is
+                  B001.  If an administrator wishes to add accounts
+                  to branch B002, then the following command would
+                  be used to start the "admin.exe" client:
+
+                        admin.exe B002
+
+                  Once accounts have been added to the database, the
+                  ATM clients may be started to provide customer
+                  access to the accounts for inquiry, withdrawal and
+                  deposits.  By exiting the administrative client
+                  before starting the ATM, new server processes will
+                  not need to be created.  The ServerBroker will
+                  re-assign the already created server processes
+                  that have been freed by the administrative client
+                  to the ATM client.
+
+        EXECUTING WINDOWS CLIENTS
+
+                  The two clients on Windows are called
+                  "ADMINWIN.EXE" and "ATMWIN.EXE".
+
+                  旼컴 NOTE! 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+                  |                                                |
+                  | The "ATMWIN.EXE" program was written using     |
+                  | native Windows calls so should execute         |
+                  | regardless of the compiler environment         |
+                  | installed on the system.  However, the         |
+                  | "ADMINWIN.EXE" client was written using the    |
+                  | Microsoft Visual C++ dialog box generator.     |
+                  | Therefore, it may not execute or build in      |
+                  | environments that do not contain this          |
+                  | environment, or its run-time support.          |
+                  |                                                |
+                  | Instead of building your own administrative    |
+                  | client for your environment, one could copy    |
+                  | the database files generated on another system |
+                  | (such as OS/2, AIX or another Windows system)  |
+                  | and then utilize the ATM function within the   |
+                  | Windows environment.  The files that hold the  |
+                  | SOMBank database are:                          |
+                  |                                                |
+                  |       'BxxxDBSe.ACC'                           |
+                  |       'BxxxDBSe.FEE'                           |
+                  |       'BxxxDBSe.INT'                           |
+                  |       'CentralD.BIN'                           |
+                  |                                                |
+                  | where xxx indicates a branch number.  If       |
+                  | moving or copying the database to another      |
+                  | system, all of these files should be copied.   |
+                  |                                                |
+                  읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
+
+                  After installation, there are no customers in the
+                  database.  Therefore, the administrative client
+                  should be used first to add customers to the
+                  database.  When a customer is added, its ID and
+                  other information will be presented to the user.
+                  The customer ID should be remembered for future
+                  access to this customers accounts.  (The ID's are
+                  four digit values starting with 0001 and are
+                  sequentially allocated.  In our simplified
+                  environment, the PIN will be identical to the ID).
+
+                  Once accounts have been added to the database, the
+                  ATM clients may be started to provide customer
+                  access to the accounts for inquiry, withdrawal and
+                  deposits.  By exiting the administrative client
+                  before starting the ATM, new server processes will
+                  not need to be created.  The ServerBroker will
+                  re-assign the already created server processes
+                  that have been freed by the administrative client
+                  to the ATM client.
+
+  BUILDING SOMBANK
+
+                  The diskette includes platform and compiler
+                  specific makefiles for building SOMBank.  These
+                  files will build all of the class libraries and
+                  clients for the specific platform.
+
+                  On OS/2 and Windows there is one additional
+                  utility file that is called by the makefile.  This
+                  utility is called "'MERGEDEF.EXE'".  There are two
+                  versions of this utility, one for OS/2 and one for
+                  Windows.  They should be copied into a separate
+                  directory that is specified in the PATH
+                  environment variable.  This utility merges
+                  multiple .DEF files as emitted from the SOM
+                  compiler into a single .DEF file.  It is used when
+                  building the "'customer.dll'" and "'account.dll'"
+                  files.  It can be used for other projects as well,
+                  when there is a requirement to merge the DEF files
+                  generated from multiple IDL files when including
+                  multiple classes in one DLL.  These .DEF files can
+                  be merged manually if required and this process is
+                  described in the SOMobjects Developer Toolkit
+                  Users Guide. However, this utility simplifies the
+                  process and allows the entire SOMBank application
+                  to be built in one step.
+
+                  The AIX environment does not require the use of
+                  the "mergedef" utility.
+
+                  To build the entire SOMBank application execute
+                  the following commands:
+
+                        nmake /f makefile.os2        (for OS/2)
+
+                        nmake /f mafeile.win         (for Windows)
+
+                        make                         (for AIX)
+
+                  Each makefile also includes a "clean" option which
+                  will erase the executables, bindings files and
+                  other files generated by the make or nmake
+                  process.
+
+                  The makefiles will also automatically create a
+                  local "'som.ir'" file including information about
+                  all of the SOMBank classes.  However, in some
+                  cases a default som.ir (usually 32 bytes in size)
+                  is generated and may have a date later than the
+                  IDL files supplied by SOMBank.  In this case, the
+                  "'som.ir'" file may not be generated by the make
+                  or nmake process.  It is always a good idea to
+                  verify that the "'som.ir'" file has been properly
+                  populated before attempting to execute the SOMBank
+                  application.  When properly populated, a
+                  "'som.ir'" file containing only SOMBank class
+                  interface definitions is around 30 Kilobytes in
+                  size.
+
+  RESETTING THE APPLICATION
+
+                  There are two aspects of the SOMBank environment
+                  that you may wish to reset periodically.
+
+        RESETTING THE IMPLEMENTATION REPOSITORY
+
+                  If SOMBank is not ended normally, then over time
+                  the Implementation Repository may grow and the
+                  file "'svrbrokr.dat'" which holds the persistent
+                  data relating to the ServerBroker may get out of
+                  sync in relation to the Implementation Repository.
+                  Whenever changes are made manually to the
+                  Implementation Repository that affect the SOMBank
+                  related servers, the "'svrbrokr.dat'" file should
+                  be erased.  Other than a slight performance hit
+                  during initial server contact, erasing the
+                  "'svrbrokr.dat'" file will not hurt the operation
+                  of the SOMBank application.  Therefore, we
+                  recommended you erase this file periodically to
+                  reset the ServerBroker data.
+
+                  If the application starts failing for no apparent
+                  reason, it is possible that the "'svrbrokr.dat'"
+                  file has either filled up (it has a maximum of
+                  fifty entries) or the Implementation Repository
+                  has had entries removed that the ServerBroker
+                  believes are still there.  In such a case, it is
+                  best to erase and rebuild the Implementation
+                  Repository and erase the "'svrbrokr.dat'" file.
+
+                  The "'svrbrokr.dat'" file is created in the
+                  working directory of the ServerBroker server
+                  process.  This will typically be the current
+                  directory when "somdd" is started.  Therefore,
+                  "somdd"  should consistently be started from the
+                  same location or else this file will not be
+                  properly located on subsequent SOMBank executions.
+
+        RESETTING THE DATABASES
+
+                  The customer and account databases are ultimately
+                  stored in flat files with the following names:
+
+                      CentralD.BIN
+                      BxxxDBSe.ACC
+                      BxxxDBSe.FEE
+                      BxxxDBSe.INT
+
+                  where xxx indicates the branch ID. (For example,
+                  'B001DBSE.ACC'
+
+                  These files may be erased to remove all customer
+                  and account information.  They will be
+                  automatically created the first time a customer is
+                  added to the database.
+
+                  The database files will be created in the working
+                  directory of the database servers' processes.
+                  This will typically be the current directory when
+                  "somdd" is started.  Therefore, "somdd" should
+                  consistently be started from the same location or
+                  else the database files from previous executions
+                  may not be found which will result in lost
+                  customer and account data.
+
+Questions/comments/sugggestions to:
+
+      Bart Jacob
+      Internet : jacobb@vnet.ibm.com
+

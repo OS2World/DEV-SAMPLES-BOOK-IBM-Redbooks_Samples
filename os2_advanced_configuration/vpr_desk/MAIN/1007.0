@@ -1,0 +1,26 @@
+Arg window self
+
+/* Get item value  List Box */
+value = VpGetItemValue(window,1000)
+if value = '' then do
+  response=VpMessageBox(window,'Error','You must first select a .INI file')
+  return
+end
+
+value = subword(value,1,1)
+'@INI2DESK' value ' > $$temp$$'
+retc = rc
+'@RXQUEUE < $$temp$$'
+'@DEL $$temp$$'
+parse pull line
+
+if retc > 1
+then do
+     response=VpMessageBox(window,'Error',line)
+     return
+     end
+/* Put the .INI name into the global variable filename */
+filename = value
+/* Open the form D:\DESKTOP\MY_VREXX\CHANGING\Where*/
+value=VpOpenForm(window, 258, 'export')
+

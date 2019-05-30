@@ -1,0 +1,38 @@
+
+Operating System/2 Program Maintenance Utility
+Version 2.000.000 Dec 02 1991
+Copyright (C) IBM Corporation 1988-1991.
+Copyright (C) Microsoft Corp. 1988-1991.
+All rights reserved.
+
+	icc /c /Ge- /Gd- /Se /Re /ss /Ms /Gm+ -IC:\toolkt20\c\os2h -c pwfolder.c
+	link386 /noi /map /nol /nod /exepack /packcode /packdata /align:16 pwfolder.obj,pwfolder.dll,,som.lib os2386.lib dde4sbs.lib dde4nbs.lib,pwfolder;
+	rc pwfolder.res pwfolder.dll
+Operating System/2  Resource Compiler
+Version 2.00.000 Nov 9 1991
+(C) Copyright IBM Corporation 1988-1991
+(C) Copyright Microsoft Corp. 1985-1991
+All rights reserved.
+
+
+Reading binary resource file pwfolder.res
+
+....
+Writing resources to OS/2 v2.0 Linear .EXE file
+Writing 1 DEMAND resource object(s)
+  Writing:  6788 bytes in 2 page(s)
+    300.1 (2448 bytes)
+    301.1 (4066 bytes)
+    25857.3 (29 bytes)
+    100.4 (237 bytes)
+
+	mapsym pwfolder.map
+
+Operating System/2 Symbol File Generator
+Version 2.000.000 Feb 05 1992
+Copyright (C) IBM Corporation 1988-1991.
+Copyright (C) Microsoft Corp. 1988-1991.
+All rights reserved.
+
+
+Program entry point at 0001:2d48

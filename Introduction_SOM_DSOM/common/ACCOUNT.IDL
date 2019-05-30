@@ -1,0 +1,177 @@
+/* ******************************************************************** *
+ * Copyright International Business Machines Corporation 1993, 1994     *
+ * DISCLAIMER OF WARRANTIES.                                            *
+ * The following [enclosed] code is sample code created by IBM          *
+ * Corporation. This sample code is not part of any standard or IBM     *
+ * product and is provided to you solely for the purpose of assisting   *
+ * you in the development of your applications.  The code is provided   *
+ * "AS IS". IBM MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT  *
+ * NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS *
+ * FOR A PARTICULAR PURPOSE, REGARDING THE FUNCTION OR PERFORMANCE OF   *
+ * THIS CODE.  IBM shall not be liable for any damages arising out of   *
+ * your use of the sample code, even if they have been advised of the   *
+ * possibility of such damages.                                         *
+ *                                                                      *
+ * DISTRIBUTION.                                                        *
+ * This sample code can be freely distributed, copied, altered, and     *
+ * incorporated into other software, provided that it bears the above   *
+ * Copyright notice and DISCLAIMER intact.                              *
+ * -------------------------------------------------------------------- *
+ * SOMBank Sample Application                                           *
+ *                                                                      *
+ * Documented in:                                                       *
+ *  IBM International Technical Support Organization Bulletin (Redbook) *
+ *  "SOMobjects: A Practical Introduction to SOM and DSOM" (GG24-4357)  *
+ * -------------------------------------------------------------------- *
+ *                                                                      *
+ * FILE       : account.idl                                             *
+ *                                                                      *
+ * CLASS NAMES: Account and AccountMetaClass                            *
+ *                                                                      *
+ * DESCRIPTION: The Account class represents a generic account type     *
+ *              in the SOMBank application.  It provides the basic      *
+ *              transactions (deposit, withdraw, inquire).  The         *
+ *              Account class will be treated as an abstract class      *
+ *              from which the SavingsAccount and CheckingAccount       *
+ *              classes will be derived.  Any account will be an        *
+ *              instance of either the SavingsAccount or                *
+ *              CheckingAccount class.                                  *
+ *                                                                      *
+ *              In addition there are several private methods used      *
+ *              to implement the basic public methods.  The two         *
+ *              persistency methods (save, restore) use the services    *
+ *              provided by the BranchDB class implemented in a         *
+ *              different process.                                      *
+ *                                                                      *
+ *              Note the way in which the private methods are hidden    *
+ *              at the end of the releaseorder list.  This method       *
+ *              works only if further public methods never get added    *
+ *              at the end of the list.  If they do, one has to use     *
+ *              (place holders) for all of the private methods          *
+ *              between the two public sections.  If new methods are    *
+ *              added to the beginning of the list the binary           *
+ *              compatibility promise to clients will be broken.        *
+ *              This is discussed in more detail in the Redbook.        *
+ *                                                                      *
+ *              The metaclass of Account is also defined, for the       *
+ *              sole purpose to define a constructor methods            *
+ *              'create' and 'restore' for the Account class.           *
+ * ******************************************************************** *
+ */
+
+#ifndef Account_IDL
+#define Account_IDL
+
+#include <somcls.idl>
+
+interface Account;  // Forward declaration
+
+interface AccountMetaClass : SOMClass
+{
+    /*------------------------------*/
+    /*          Methods             */
+    /*------------------------------*/
+
+    Account create(in long owner,
+                   in double balance);
+    Account restore(in long identifier);
+
+    /*------------------------------*/
+    /*       Implementation         */
+    /*------------------------------*/
+
+    #ifdef __SOMIDL__
+        implementation
+        {
+            dllname      = "account.dll";
+
+            releaseorder : create,
+                           restore;
+        };
+    #endif /*__SOMIDL__*/
+};
+
+interface Account : SOMObject
+{
+
+    /*------------------------------*/
+    /*     Types and Constants      */
+    /*------------------------------*/
+
+    enum TYPES { NONE, SAVINGS, CHECKING };
+
+    /*------------------------------*/
+    /*          Methods             */
+    /*------------------------------*/
+
+    long withdrawFrom(in double amount);
+    long depositTo(in double amount);
+    long inquireAbout(out TYPES type,
+                      out double balance);
+    long save();
+    long delete();
+    #ifdef __PRIVATE__
+        boolean withdrawalIsValid(in double amount);
+        void logTransaction();
+        void addToBalance(in double amount);
+        void takeFromBalance(in double amount);
+    #endif /*__PRIVATE__*/
+
+    /*------------------------------*/
+    /*         Attributes           */
+    /*------------------------------*/
+
+        attribute long accountID;
+        attribute long owner;
+        attribute TYPES type;
+        attribute double balance;
+        attribute double minimumBalance;
+        attribute long lastTransactionTime;
+
+    /*------------------------------*/
+    /*       Implementation         */
+    /*------------------------------*/
+
+    #ifdef __SOMIDL__
+        implementation
+        {
+           dllname      = "account.dll";
+
+           metaclass    = AccountMetaClass;
+
+           releaseorder : withdrawFrom,
+                          depositTo,
+                          inquireAbout,
+                          save,
+                          delete,
+                          _get_accountID,
+                          _set_accountID,
+                          _get_owner,
+                          _set_owner,
+                          _get_type,
+                          _set_type,
+                          _get_balance,
+                          _set_balance,
+                          _get_minimumBalance,
+                          _set_minimumBalance,
+                          _get_lastTransactionTime,
+                          _set_lastTransactionTime,
+                          #ifdef __PRIVATE__
+                              withdrawalIsValid,
+                              logTransaction,
+                              addToBalance,
+                              takeFromBalance
+                          #else
+                              dummy1,
+                              dummy2,
+                              dummy3,
+                              dummy4
+                          #endif /*__PRIVATE__*/
+                          ;
+            passthru C_h = "#include \"sberr.h\""
+                           "#include \"bdb.h\"";
+        };
+    #endif /*__SOMIDL__*/
+};
+#endif /*Account_IDL*/
+

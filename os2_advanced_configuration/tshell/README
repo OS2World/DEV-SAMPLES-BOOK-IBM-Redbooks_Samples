@@ -1,0 +1,423 @@
+TSHELL                               Monte Copeland, IBM Boca Raton
+
+(c) Copyright International Business Machines Corporation 1993.
+All rights Reserved.
+
+
+REVISION HISTORY
+--------------------------------------------------------------------
+
+19JAN94: first release for IBM EWS
+05JAN94: home,end keys for listboxes; tweak readme
+13DEC93: CSHELL->TSHELL name change; less RAM used if no REXX
+16NOV93: start group is programmable with REXX
+18AUG93: first release on OS2TOOLS.
+
+
+
+
+
+
+INTRODUCTION
+--------------------------------------------------------------------
+
+TSHELL is a text-based, non-graphical user interface shell for OS/2 2.1.
+TSHELL can start multiple full-screen sessions and run programs in them.
+
+TSHELL is not for everybody.  TSHELL sacrifices the usability of PM and the
+Workplace Shell, but it does save memory.  TSHELL works well in 4MB.
+
+Every TSHELL session is a full-screen session.  These can be OS/2, DOS, or
+WINOS2 sessions depending on the machine configuration.  As always, you use
+Alt-Esc to switch around sessions and Ctrl-Esc to show a list of sessions.
+
+There is no Presentation Manager; thus, PM applications will not work.
+There are other restrictions; see below.  TSHELL may have applications in
+low-resource systems, embedded systems, floppy boots, or test beds.
+
+TSHELL is IBM Employee Written Software.  Please read the "as-is" license
+agreement from IBM.  Essentially, you use this program "as is," and IBM
+makes no warranty about the correctness of this program or its suitability
+to any purpose.
+
+TSHELL is written by Monte Copeland, IBM Boca Raton.
+(C) Copyright 1993 IBM Corporation.
+
+
+
+
+
+
+INSTALLATION
+--------------------------------------------------------------------
+
+1. Make a copy of your CONFIG.SYS.  You will need it to uninstall TSHELL.
+
+2. Copy TSHELL.EXE into the root directory of the bootup drive.
+
+3. Edit CONFIG.SYS and change the PROTSHELL setting to
+
+            PROTSHELL=\TSHELL.EXE
+
+There is more you can do to save memory.  See below.
+
+4. (OPTIONAL) Copy PGMSHELL.EXE into your PATH.
+
+
+
+
+
+
+
+RESTRICTIONS AND KNOWN BUGS
+--------------------------------------------------------------------
+
+TSHELL will not run programs that require Presentation Manager.  TSHELL
+does not initialize PM.  It can only start OS/2 and DOS programs in full
+screen sessions.
+
+TSHELL does not spool.  If you have no printer attached, and you
+accidentally press Print-Screen, you should wait for the parallel port to
+timeout:  up to two minutes.  See SetParallelTimeout() function below for a
+workaround.
+
+REXX works (if present) but REXX utilities DLL (REXXUTIL.DLL) does not.
+
+The START /DOS command does not work right.  CMD.EXE should start a DOS
+session, but it incorrectly starts an OS/2 session.  Get my STARTDOS
+package (STARTD.ZIP) for a workaround.
+
+At this time, IBM LAN Requestor does not work.  Fix in progress.
+
+When TSHELL has a shutdown option on the menu, end all running programs
+first, then it works.
+
+When TSHELL does not have a shutdown option on the menu, press
+Control-Alt-Delete and wait for the disk activity light to go out.  Then
+turn off the computer.  This is a clean shutdown.  C-A-D will always
+perform a clean shutdown and reboot.
+
+TSHELL has no means to kill a session.  Working on it.
+
+Pressing Ctrl-Esc from WinOS2 on Dell S3 SVGA causes video sync problems.
+Keep pressing Alt-esc to recover.
+
+The running list can get corrupted.  Keep pressing Alt-Esc to recover.
+This happens on ThinkPads if you close and reopen them.
+
+In DOS sessions, NumLock and CapsLock lamps on the keyboard do not light
+properly.  The lamps are refreshed correctly after a session switch.
+
+If running MEMMAN=NOSWAP, you must ensure you have enough memory.  Problems
+will occur upon exceeding memory capacity.  TSHELL operates most reliably
+with swapping turned on.
+
+Don't run TSHELL from a command prompt.  TSHELL.EXE is for the PROTSHELL
+statement in CONFIG.SYS.
+
+
+
+
+
+
+
+
+
+PGMSHELL.EXE: PROGRAMMING THE TSHELL START LIST
+--------------------------------------------------------------------
+
+Usage: PGMSHELL <REXX cmd file>
+
+You can modify TSHELL's list of startable programs by writing a script in
+REXX and invoking it via the utility PGMSHELL.EXE.  PGMSHELL collects data
+from REXX and passes it to TSHELL.
+
+PGMSHELL is optional.  If you never use PGMSHELL, TSHELL will provide a
+default list of items to start.  PGMSHELL requires REXX.
+
+Here is a sample REXX program that modifies the TSHELL start list:
+
+    /* REXX program to modify TSHELL */
+
+    if 'PGMSHELL' <> address() then do
+      say 'Expected PGMSHELL environment.'
+      say 'Usage:  PGMSHELL <cmd filename>'
+      return 2
+    end
+
+    /* TSHELL does not spool, so reduce parallel port timeout
+    from 120 to 5 seconds in case you accidentally hit print-screen
+    and there is no printer hooked up. */
+    rc = SetParallelTimeout( "LPT1", 5 )
+
+    /* title text for the start list  */
+    rc = SetStartTitle( "Start Group" )
+
+    /* title text for the running list  */
+    rc = SetRunningTitle( "Running Group" )
+
+    /* Add OS2 program; arguments: title, startup dir, parameters, exe */
+    /* I omit the title of CMD.EXE session, then CMD.EXE will dynamically */
+    /* update the title based on the currently-running program. */
+    rc = AddOS2Program( "",,,"CMD.EXE" )
+
+    /* Add OS2 program; arguments: title, startup dir, parameters, exe */
+    rc = AddOS2Program( "Format Floppy",,"A:","FORMAT.COM" )
+
+    /* is configured for DOS? */
+    if QueryDOSCapable() then do
+      /* Add DOS program;
+      arguments: title, startup dir, parameters, settings stem */
+      drop settings
+      settings.0 = "DPMI_DOS_API=ENABLED"
+      settings.1 = "DPMI_MEMORY_LIMIT=8"
+      rc = AddDOSProgram( "DPMI DOS Session",,, "settings" )
+
+      /* Add winos2 */
+      rc = AddDOSProgram( "WinOS2","","/c winos2", "" )
+    end
+
+    /* add shutdown option. arguments: title, completion msg */
+    rc = AddShutdown( "Shutdown", "Shutdown Complete" )
+    return 0
+
+
+
+These special functions are available to REXX programs under the PGMSHELL
+environment:
+
+
+SetParallelTimeout( portname, timeout in decimal seconds )
+   Sets the parallel port timeout. Set the port timeout to zero if there
+   is no printer attached.
+
+SetStartTitle( start group title )
+   Sets the title text above the list of startable programs.
+
+SetRunningTitle( running group title )
+   Sets the title text above the list of running programs.
+
+QueryDOSCapable()
+   Returns a Boolean indicating if the system is configured to emulate DOS.
+
+AddOS2Program( title, startup dir, parameters, EXE )
+   Adds an OS/2, protected-mode program to the start list.
+
+AddDOSProgram( title, startup dir, command.com arguments, settings stem )
+   Adds a DOS mode program to the start list. ALL elements of the stem
+   variable are considered DOS settings. Therefore, drop the stem variable
+   before assigning DOS settings to it.  For help with DOS settings,
+   1) see the settings dialog in Workplace Shell or 2) obtain my
+   STARTDOS package and run settings.exe, a PM application.
+
+AddShutdown( shutdown title, shutdown complete message )
+   Adds the shutdown option to the start group.
+
+
+
+--------------------------------------------------------------------------
+
+
+
+
+
+
+LICENSE INFORMATION:
+----------------------------------------------------------------------------
+Please read LICENSE.TXT, the IBM license agreement.  If you redistribute
+TSHELL, be sure the ZIP contains these files:
+
+    TSHELL.EXE
+    PGMSHELL.EXE
+    README
+    LICENSE.TXT
+    TSHELL.ABS
+
+
+
+
+
+
+
+
+
+USING LESS DISK AND MEMORY WITH TSHELL
+----------------------------------------------------------------------------
+
+This section suggests ways to reduce the amount of disk space and
+memory required for OS/2 when running with TSHELL.  Think carefully before
+you delete OS/2 system files.  Experiment with a subset of OS/2 DLLs in a
+directory other than \OS2\DLL.  When you find the right subset, then erase
+the rest as you see fit.
+
+OS/2 2.1 can boot from a single floppy.  See the BOOT2X.ZIP package
+in the OS2USER forum library 17 on CompuServe.
+
+Here are two configurations:  one with DOS support; one without.  It
+assumes the boot drive is drive C:, and there is a VGA display installed.
+
+Step 1:  Create new directories for your subset of OS/2 DLLs.  Begin by
+copying DLLs from \OS2\DLL into C:\DLL and C:\DLL\DLL as shown.
+
+Directory C:\DLL is required for both DOS and non-DOS operation.
+
+           Directory of C:\DLL
+
+          11-20-93  10:27a     <DIR>           0  .
+          11-20-93  10:27a     <DIR>           0  ..
+           4-22-93   2:49p       438           0  ANSICALL.DLL
+           4-22-93   2:50p       401           0  BKSCALLS.DLL
+           4-22-93   2:51p       398           0  BMSCALLS.DLL
+           4-25-93   4:04p      9443          49  BVHINIT.DLL
+           4-25-93   4:04p     40892          49  BVHVGA.DLL
+           4-22-93   2:54p       454           0  BVSCALLS.DLL
+           1-15-94   1:19p     <DIR>           0  DLL
+           4-29-93   9:30p     90854           0  DOSCALL1.DLL
+           4-22-93   3:32p       858           0  KBDCALLS.DLL
+           4-22-93   3:31p      1010           0  MOUCALLS.DLL
+           4-22-93   4:09p       508          49  MSG.DLL
+           4-25-93   4:31p      1024          49  NAMPIPES.DLL
+           4-22-93   4:08p       466          49  NLS.DLL
+           4-22-93   6:03p     25280          49  NPXEMLTR.DLL
+           4-25-93   4:12p     56000          49  OS2CHAR.DLL
+           4-29-93   9:27p     15250          49  QUECALLS.DLL
+           4-25-93   4:18p     32806          49  SESMGR.DLL
+optional-> 4-29-93   9:01p    179872           0  UHPFS.DLL
+           4-25-93   4:11p      1825           0  VIOCALLS.DLL
+                  21 file(s)     457779 bytes used
+                               24926208 bytes free
+
+
+
+Directory C:\DLL\DLL is only required for DOS operation. Omit it
+for protect-only configuration.
+
+           Directory of C:\DLL\DLL
+
+           1-15-94   1:19p     <DIR>           0  .
+           1-15-94   1:19p     <DIR>           0  ..
+           4-25-93   4:04p     14288          49  BVHWNDW.DLL
+           4-22-93   4:10p       474          49  MONCALLS.DLL
+           4-22-93   1:06p      1597           0  OS2SM.DLL
+           4-25-93   5:02p     60162           0  PMBIND.DLL
+           5-06-93  11:37p    327579        3236  PMCTLS.DLL
+           4-22-93   3:34p    303865          49  PMGPI.DLL
+           5-11-93   6:14p    421101           0  PMGRE.DLL
+           5-02-93  10:14p    125296        3286  PMSHAPI.DLL
+           4-22-93   1:02p      3839        3286  PMSHAPIM.DLL
+           4-22-93  11:51a    183292           0  PMSPL.DLL
+           5-06-93   9:58p      2550           0  PMVDMH.DLL
+           4-25-93   4:49p     35105           0  PMVDMP.DLL
+           5-06-93  10:00p     96401        3542  PMVIOP.DLL
+           4-29-93   9:04p    541892           0  PMWIN.DLL
+           3-12-93   5:57p    248368           0  REXX.DLL
+           3-12-93   5:57p     33367           0  REXXAPI.DLL
+           3-12-93   5:57p      1468           0  REXXINIT.DLL
+           5-08-93   9:33p     29385           0  REXXUTIL.DLL
+           4-22-93  11:36a      5061          49  SPL1B.DLL
+                  21 file(s)    2435090 bytes used
+                               24924672 bytes free
+
+
+Three REXX DLLs can reside in either C:\DLL or C:\DLL\DLL.  Or, omit them
+if you don't use REXX.
+
+
+Step 2: Modify CONFIG.SYS.  Here are two sample CONFIG.SYS files.
+The directory C:\BIN contains only user executables.
+
+FOR NON-DOS, OS2-ONLY OPERATION:  Get VTBL850.DCP from OS/2 Installation
+Disk 1 and copy to C:\OS2.  Note this LIBPATH ignores C:\DLL\DLL created in
+step one.  Sample CONFIG.SYS:
+
+   rem CONFIG.SYS for no DOS, protect-mode-only operation
+   PROTSHELL=C:\TSHELL.EXE
+   rem HPFS is optional
+   IFS=C:\OS2\HPFS.IFS  /CACHE:256 /CRECL:4 /AUTOCHECK:C
+   SET COMSPEC=C:\OS2\CMD.EXE
+   SET OS2_SHELL=C:\OS2\CMD.EXE
+   SET PROMPT=[$p]
+   LIBPATH=.;C:\DLL;C:\;
+   SET DPATH=C:\OS2;C:\OS2\SYSTEM;C:\OS2\INSTALL;C:\;
+   SET PATH=c:\bin;C:\OS2;C:\OS2\SYSTEM;C:\OS2\INSTALL;C:\;C:\OS2\APPS;
+   PRIORITY_DISK_IO=YES
+   FILES=20
+   BUFFERS=30
+   IOPL=YES
+   DISKCACHE=64,LW
+   MAXWAIT=3
+   MEMMAN=SWAP,PROTECT
+   SWAPPATH=C:\OS2\SYSTEM  4096 5120
+   THREADS=64
+   PRINTMONBUFSIZE=134,134,134
+   COUNTRY=001,C:\OS2\SYSTEM\COUNTRY.SYS
+   SET KEYS=ON
+   BASEDEV=PRINT02.SYS
+   BASEDEV=IBM2FLPY.ADD
+   BASEDEV=IBM2ADSK.ADD
+   BASEDEV=OS2DASD.DMD
+   PROTECTONLY=YES
+   CODEPAGE=437,850
+   DEVINFO=KBD,US,C:\OS2\KEYBOARD.DCP
+   DEVINFO=SCR,EGA,C:\OS2\VTBL850.DCP
+
+
+
+
+FOR OS/2 WITH DOS SUPPORT: Sample CONFIG.SYS:
+
+   rem CONFIG.SYS for multiple DOS sessions
+   PROTSHELL=C:\TSHELL.EXE
+   rem HPFS is optional
+   IFS=C:\OS2\HPFS.IFS  /CACHE:512 /CRECL:4 /AUTOCHECK:C
+   rem INI's are not used, but settings are required
+   SET USER_INI=C:\OS2\OS2.INI
+   SET SYSTEM_INI=C:\OS2\OS2SYS.INI
+   SET COMSPEC=C:\OS2\CMD.EXE
+   SET OS2_SHELL=C:\OS2\CMD.EXE
+   SET PROMPT=[$p]
+   SET KEYS=ON
+   LIBPATH=.;C:\DLL;C:\DLL\DLL;C:\OS2\MDOS;C:\;
+   SET PATH=c:\bin;C:\OS2;C:\OS2\SYSTEM;C:\OS2\INSTALL;C:\;C:\OS2\MDOS;
+   SET DPATH=C:\OS2;C:\OS2\SYSTEM;C:\OS2\INSTALL;C:\;C:\OS2\MDOS;C:\OS2\APPS;
+   PRIORITY_DISK_IO=YES
+   BUFFERS=30
+   IOPL=YES
+   DISKCACHE=64,LW
+   MAXWAIT=3
+   MEMMAN=SWAP,PROTECT
+   SWAPPATH=C:\OS2\SYSTEM  4096 5120
+   THREADS=64
+   PRINTMONBUFSIZE=134,134,134
+   COUNTRY=001,C:\OS2\SYSTEM\COUNTRY.SYS
+   BASEDEV=PRINT02.SYS
+   BASEDEV=IBM2FLPY.ADD
+   BASEDEV=IBM2ADSK.ADD
+   BASEDEV=OS2DASD.DMD
+   PROTECTONLY=NO
+   SHELL=C:\OS2\MDOS\COMMAND.COM C:\OS2\MDOS
+   BREAK=OFF
+   FILES=20
+   FCBS=16,8
+   RMSIZE=640
+   DEVICE=C:\OS2\MDOS\VEMM.SYS
+   DOS=LOW,NOUMB
+   DEVICE=C:\OS2\MDOS\VDPX.SYS
+   DEVICE=C:\OS2\MDOS\VXMS.SYS /UMB
+   DEVICE=C:\OS2\MDOS\VDPMI.SYS
+   DEVICE=C:\OS2\MDOS\VCDROM.SYS
+   DEVICE=C:\OS2\MDOS\VMOUSE.SYS
+   DEVICE=C:\OS2\POINTDD.SYS
+   DEVICE=C:\OS2\MOUSE.SYS
+   rem unrem these for COM device driver support
+   rem DOS programs see COM hardware even if these are rem'ed out
+   rem DEVICE=C:\OS2\COM.SYS
+   rem DEVICE=C:\OS2\MDOS\VCOM.SYS
+   CODEPAGE=437,850
+   rem this machine has a VGA
+   DEVICE=C:\OS2\MDOS\VVGA.SYS
+   DEVINFO=KBD,US,C:\OS2\KEYBOARD.DCP
+   DEVINFO=SCR,VGA,C:\OS2\VIOTBL.DCP
+   SET VIDEO_DEVICES=VIO_VGA
+   SET VIO_VGA=DEVICE(BVHVGA)
+

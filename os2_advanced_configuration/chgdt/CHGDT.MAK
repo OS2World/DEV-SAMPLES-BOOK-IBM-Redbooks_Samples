@@ -1,0 +1,23 @@
+CPARMS = /N10 /W3 /C+ /Ka+ /Kb+ /Kc+ /Kg+ /Kp+ /Ti+
+CPARMS = /N10 /W3 /C+ /Ka+ /Kb+ /Kc+ /Kg+ /Kp+ /Gm- /Sm
+
+all: CHGDT.exe
+
+CHGDT.exe: CHGDT.obj QDESKDIR.obj CHKINI.obj SDESKDIR.obj QUERYEA.obj ..\QDESK\QDESKOBJ.OBJ
+        LINK386 CHGDT+QDESKDIR+CHKINI+SDESKDIR+QUERYEA+..\QDESK\QDESKOBJ.OBJ,CHGDT,CHGDT,,CHGDT.DEF;
+
+CHGDT.obj: CHGDT.c CHGDT.h
+        ICC $(CPARMS) CHGDT.c
+
+QDESKDIR.obj: QDESKDIR.c ..\qdesk\qdparm.h CHGDT.h
+        ICC $(CPARMS) QDESKDIR.c
+
+CHKINI.obj: CHKINI.c CHGDT.h
+        ICC $(CPARMS) CHKINI.c
+
+SDESKDIR.obj: SDESKDIR.c ..\qdesk\qdparm.h CHGDT.h
+        ICC $(CPARMS) SDESKDIR.c
+
+QUERYEA.obj: QUERYEA.c
+        ICC $(CPARMS) QUERYEA.c
+

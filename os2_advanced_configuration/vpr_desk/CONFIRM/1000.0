@@ -1,0 +1,15 @@
+Arg window self
+
+parse var Topic filename name expdir
+/* Get item value  Entry Field */
+value = VpGetItemValue(window,1003)
+call SysFileTree value,'file','B'
+if file.0 = 0
+then do
+     call export window filename name value
+     CALL VpWindow window,'CLOSE'
+     end
+else /* Set item value  Text */
+     CALL VpSetItemValue window,1005,'A directory or file with the name' value ,
+          'already exists.'||'0d'x||'Either change the directory name' ,
+          'and click on Ok or select Overwrite to delete the existing file/directory first or select Cancel.'

@@ -1,0 +1,11 @@
+WinInitialize ok.
+WinGetLastError from function WinCreateMsgQueue = 81051
+DosAllocSharedMem, rc = 183
+DosGetNamedSharedMem, rc = 0
+WinGetLastError from function WinCreateObject = 41712
+WinGetLastError from function WinSetObjectData = 41709
+WinGetLastError from function WinDestroyObject = 41709
+Object Handle: 0
+ObjPtr: 1332AC
+QueryRealName, rc = 1
+DosFreeMem, rc = 0

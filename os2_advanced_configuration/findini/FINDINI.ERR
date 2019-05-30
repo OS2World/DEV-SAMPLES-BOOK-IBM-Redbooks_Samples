@@ -1,0 +1,32 @@
+FINDINI.C(60:14) : warning EDC0117: The operation between these types is not valid.
+FINDINI.C(60:4) : informational EDC0140: Operand has type pointer to unsigned character.
+FINDINI.C(60:16) : informational EDC0140: Operand has type signed integer.
+FINDINI.C(98:0) : informational EDC0805: Automatic variable rc is set but not referenced.
+FINDINI.C(178:21) : warning EDC0117: The operation between these types is not valid.
+FINDINI.C(178:12) : informational EDC0140: Operand has type pointer to unsigned character.
+FINDINI.C(178:23) : informational EDC0140: Operand has type signed integer.
+FINDINI.C(232:7) : warning EDC0322: Type of the parameter cannot conflict with previous declaration of function.
+FINDINI.C(232:7) : informational EDC0141: Prototype has type pointer to constant unsigned character.
+FINDINI.C(232:7) : informational EDC0147: Argument has type array[128] of pointer to unsigned character.
+FINDINI.C(240:7) : warning EDC0322: Type of the parameter cannot conflict with previous declaration of function.
+FINDINI.C(240:7) : informational EDC0141: Prototype has type pointer to constant unsigned character.
+FINDINI.C(240:7) : informational EDC0147: Argument has type array[128] of pointer to unsigned character.
+FINDINI.C(294:13) : warning EDC0117: The operation between these types is not valid.
+FINDINI.C(294:6) : informational EDC0140: Operand has type pointer to unsigned character.
+FINDINI.C(294:15) : informational EDC0140: Operand has type signed integer.
+FINDINI.C(297:14) : warning EDC0117: The operation between these types is not valid.
+FINDINI.C(297:6) : informational EDC0140: Operand has type pointer to unsigned character.
+FINDINI.C(297:16) : informational EDC0140: Operand has type signed integer.
+FINDINI.C(322:14) : warning EDC0117: The operation between these types is not valid.
+FINDINI.C(322:7) : informational EDC0140: Operand has type pointer to unsigned character.
+FINDINI.C(322:16) : informational EDC0140: Operand has type signed integer.
+FINDINI.C(343:23) : warning EDC0117: The operation between these types is not valid.
+FINDINI.C(343:16) : informational EDC0140: Operand has type pointer to unsigned character.
+FINDINI.C(343:25) : informational EDC0140: Operand has type signed integer.
+
+Operating System/2 Linear Executable Linker
+Version 2.01.005 Mar 16 1993
+Copyright (C) IBM Corporation 1988-1993.
+Copyright (C) Microsoft Corp. 1988-1993.
+ All rights reserved.
+

@@ -1,0 +1,16 @@
+NAME         FINDINI
+
+DESCRIPTION             'FINDINI Created by Tim'
+PROTMODE
+
+
+STUB                    'OS2STUB.EXE'
+
+HEAPSIZE                        10000
+
+
+
+
+
+
+

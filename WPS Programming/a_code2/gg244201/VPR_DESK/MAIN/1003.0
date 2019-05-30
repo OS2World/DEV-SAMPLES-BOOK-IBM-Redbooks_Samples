@@ -1,0 +1,9 @@
+Arg window self
+
+filename = VpFileDialog(window,'OPEN',drive'\*.rc','Open File')
+if filename = '' then return
+newininame = ''
+/* Open the form D:\DESKTOP\My_VREXX\Changing\Input*/
+value=VpOpenForm(window, 257, 'topic name')
+
+ 

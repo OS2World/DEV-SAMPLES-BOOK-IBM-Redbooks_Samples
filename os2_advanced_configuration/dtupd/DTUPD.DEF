@@ -1,0 +1,19 @@
+;******* Query File System objects / update INI file on new machine ********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+
+
+NAME    DTUPD   WINDOWCOMPAT
+
+DESCRIPTION     'Query file system objects / update INI file'
+
+STUB    'OS2STUB.EXE'
+
+DATA    MULTIPLE
+
+STACKSIZE  16384
+HEAPSIZE   4096
+
+PROTMODE
+

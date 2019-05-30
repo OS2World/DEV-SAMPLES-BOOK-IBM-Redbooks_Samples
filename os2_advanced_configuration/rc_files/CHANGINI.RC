@@ -1,0 +1,47 @@
+/* File used by MAKEINI.EXE to update a USER.INI                      */
+/* Use the command                                                    */
+/*    MAKEINI USER.INI CHANGINI.RC                                    */
+/* to update the file NEW.INI.                                        */
+/* To copy over the OS2.INI, use a DOS boot diskette or the           */
+/* OS2 Install diskette ESCed to the command line to compile          */
+/* CHANGINI.INI over the existing OS2.INI.                            */
+/* To use onther USER.INI compile INI.RC to USER.INI and then compile */
+/* CHANGINI.RC over the USER.INI file to update it.                   */
+
+STRINGTABLE
+BEGIN
+
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+  ""
+
+  "PM_Fonts" "BLACKCHA.OFM" "\PSFONTS\BLACKCHA.OFM"
+END
+STRINGTABLE REPLACEMODE
+BEGIN
+    "PM_InstallObject" "Templates;WPTemplates;<WP_DESKTOP>;UPDATE" "NODELETE=YES;ICONPOS=4 5;OBJECTID=<WP_TEMPS>"
+    "PM_InstallObject" "Minimized^Window Viewer;WPMinWinViewer;<WP_DESKTOP>;UPDATE" "ICONPOS=5 30;OBJECTID=<WP_VIEWER>"
+    "PM_InstallObject" "Shredder;WPShredder;<WP_DESKTOP>;UPDATE" "ICONPOS=90 5;OBJECTID=<WP_SHRED>"
+    "PM_InstallObject" "OS/2 Window:1;WPProgram;<WP_DESKTOP>;REPLACE" "EXENAME=*;PROGTYPE=WINDOWABLEVIO;NODELETE=YES;ICONPOS=45 5;HELPPANEL=8010;OBJECTID=<WP_OS2WIN1>"
+    "PM_InstallObject" "OS/2 Window:2;WPProgram;<WP_DESKTOP>;REPLACE" "EXENAME=*;PROGTYPE=WINDOWABLEVIO;NODELETE=YES;ICONPOS=60 5;HELPPANEL=8010;OBJECTID=<WP_OS2WIN2>"
+    "PM_InstallObject" "DOS Window;WPProgram;<WP_DESKTOP>;REPLACE" "EXENAME=*;PROGTYPE=WINDOWEDVDM;NODELETE=YES;ICONPOS=70 5;HELPPANEL=8012;OBJECTID=<WP_DOSWIN1>"
+    "PM_InstallObject" "Information;WPFolder;<WP_DESKTOP>;UPDATE" "ICONPOS=4 55;NODELETE=YES;OBJECTID=<WP_INFO>"
+      "PM_InstallObject" "Start Here;WPProgram;<WP_INFO>;REPLACE" "EXENAME=STHR.EXE;PROGTYPE=PM;STARTUPDIR=\OS2\HELP;HELPPANEL=9278;OBJECTID=<WP_STHR>"
+      "PM_InstallObject" "Master Help Index;Mindex;<WP_INFO>;REPLACE" "INDEX=HELP;NODELETE=YES;OBJECTID=<WP_MINDEX>"
+    "PM_InstallObject" "OS/2 System;WPFolder;<WP_DESKTOP>;UPDATE" "NODELETE=YES;ICONPOS=4 70;ICONVIEWPOS=9 59 35 23;OBJECTID=<WP_OS2SYS>"
+      "PM_InstallObject" "Display Driver Install;WPProgram;<WP_CONFIG>;UPDATE" "EXENAME=?:\OS2\INSTALL\DSPINSTL.EXE;OBJECTID=<WP_DSPINST>"
+      "PM_InstallObject" "Adobe Type Manager;WPProgram;<WP_CONFIG>;UPDATE" "EXENAME=?:\OS2\MDOS\WINOS2\ATMCNTRL.EXE;PROGTYPE=WINDOWEDWIN;OBJECTID=<WP_WINATM>"
+      "PM_InstallObject" "Windows Control Panel;WPProgram;<WP_CONFIG>;UPDATE" "EXENAME=?:\OS2\MDOS\WINOS2\CONTROL.EXE;PROGTYPE=WINDOWEDWIN;OBJECTID=<WP_WINCONTROL>"
+      "PM_InstallObject" "Enhanced Editor;WPProgram;<WP_TOOLS>;UPDATE"  "EXENAME=EPM.EXE;PROGTYPE=PM;OBJECTID=<WP_EPM>"
+    "PM_InstallObject" "Enhanced Editor;WPShadow;<WP_DESKTOP>;UPDATE"  "ICONPOS=15 5;SHADOWID=<WP_EPM>"
+    "PM_InstallObject" "Drives;WPShadow;<WP_DESKTOP>" "NODELETE=YES;ICONPOS=25 5;SHADOWID=<WP_DRIVES>"
+END
+STRINGTABLE
+

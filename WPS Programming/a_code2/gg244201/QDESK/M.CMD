@@ -1,0 +1,2 @@
+@nmake qdeskobj.mak
+

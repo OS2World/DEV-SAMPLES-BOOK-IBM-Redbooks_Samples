@@ -1,0 +1,12 @@
+Arg window 
+
+i1 = lastpos('\',filename)
+if i1>0
+then value = substr(filename,i1+1)
+else value = filename
+i1=pos('.',value)
+if i1>0
+then value=left(value,i1-1)
+value=value'.INI'
+/* Set item value  Entry Field */
+CALL VpSetItemValue window,1000,value

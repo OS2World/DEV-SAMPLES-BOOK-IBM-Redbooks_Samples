@@ -1,0 +1,19 @@
+;******* Activate alternate desktop ********
+;
+;  The module definition file supplies extra information about the program
+;  module to the LINKER.
+
+
+NAME    CHGDT        WINDOWCOMPAT
+
+DESCRIPTION     'Activate alternate desktop'
+
+STUB    'OS2STUB.EXE'
+
+DATA    MULTIPLE
+
+STACKSIZE  16384
+HEAPSIZE   4096
+
+PROTMODE
+
